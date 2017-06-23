@@ -85,49 +85,44 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
+@SuppressWarnings("serial")
 public class mojClass extends JFrame {
 	
-	int wybranyIndex = 0;
+	int selectIndex = 0;
 	
-	Connection con;
-	Statement requete;
-	ResultSet rs;
+	Connection connection;
+	Statement statement;
+	ResultSet resultset;
 	
-	public boolean connectBool = false;
-	
-	public String status = "false";
-	public String urll = "";
-	
-	ArrayList<String> daneProfile = new ArrayList<String>();
-	public String downUSER="";
-	public String downPASS="";
-	public String downURL="";
-	public String wybranaKonfig = "";
-	
-	public String numerKonfig="";
-	
+	public boolean connectBool = false;	
+	public String status = "false";		
+	ArrayList<String> dataProfile = new ArrayList<String>();
+	public String USERNAME="";
+	public String PASSWORD="";
+	public String URL="";
+	public String selectConfig = "";	
+	public String numberOfConfig="";	
 	public boolean zmiennaNiema=false; 
 	
 	
-	///// WSZYSTKIE ELEMENTY /////
 	JFrame frame;
-	JComboBox<String> jComboBox1 =new JComboBox<String>();
-	JButton wybierz = new JButton() ;
-	JButton wyczysc = new JButton() ;
-	JButton dodajNowa = new JButton();
+	JComboBox<String> jSelectConfig =new JComboBox<String>();
+	JButton select = new JButton() ;
+	JButton remove = new JButton() ;
+	JButton addNew = new JButton();
 	JButton connect = new JButton();
-	//Object wybranaBaza;	
-	ArrayList<String> mojList = new ArrayList<String>();
-	ArrayList<String> mojList2 = new ArrayList<String>();
+	
+	ArrayList<String> selectedTable = new ArrayList<String>();
+	ArrayList<String> columnNames = new ArrayList<String>();
 	JScrollPane scroller = new JScrollPane();
 	
 	
-	boolean aaa = true;
-    boolean bbb= true;
+	boolean varCheckOne = true;
+    boolean varCheckTwo= true;
 
-    JButton button1,button2,button3,button4, button5,button6,button7,button8,button9;
-    JTextField jtf, jtf2,jtf3,jtf4,jtf5,jtf6,jtf7;
-    JTextField jtf52;
+    JButton butId1,butId2,butId3,butId4, butId5,butId6,butId7,butId8,butId9;
+    JTextField jtfSearch, jtf_ID2,jtf_ID3,jtf_ID4,jtf_ID5,jtf_ID1,jtfDelete;
+    JTextField jtf_ID6;
     
     JTextField jtfURL =new JTextField();
     JTextField jtfUSER =new JTextField();
@@ -135,9 +130,9 @@ public class mojClass extends JFrame {
 
     JLabel st;
     
-    JLabel userr;
-    JLabel passs;
-    JLabel urlll;
+    JLabel userLabel;
+    JLabel passLabel;
+    JLabel urlLabel;
     JLabel ex;
     JTextField ex2;
     JComboBox<String> jComboBox2 =new JComboBox<String>();
@@ -239,10 +234,10 @@ public class mojClass extends JFrame {
 		frame.setVisible(true);
 		
 		
-		jComboBox1.setBounds(20,110,120,50);
-		frame.getContentPane().add(jComboBox1);
-		//jComboBox1.setBackground(myColor3);
-		jComboBox1.setVisible(false);
+		jSelectConfig.setBounds(20,110,120,50);
+		frame.getContentPane().add(jSelectConfig);
+		//jSelectConfig.setBackground(myColor3);
+		jSelectConfig.setVisible(false);
 		
 		jComboBox2.setBounds(50,140,120,50); // Contains profiles
 		frame.getContentPane().add(jComboBox2);
@@ -251,23 +246,23 @@ public class mojClass extends JFrame {
 		sprawdzenieProfile();
 		//jComboBox2.addItem("NOWA");
 				
-		wybierz.setText("WYBIERZ");
-		wybierz.setBounds(260,30,120,50);
-		frame.getContentPane().add(wybierz);
-		//wybierz.setVisible(false);
-		buttt(wybierz);
+		select.setText("select");
+		select.setBounds(260,30,120,50);
+		frame.getContentPane().add(select);
+		//select.setVisible(false);
+		buttt(select);
 		
-		dodajNowa.setText("DODAJ");
-		dodajNowa.setBounds(460,30,120,50);
-		frame.getContentPane().add(dodajNowa);
-		//dodajNowa.setVisible(false);
-		buttt(dodajNowa);
+		addNew.setText("DODAJ");
+		addNew.setBounds(460,30,120,50);
+		frame.getContentPane().add(addNew);
+		//addNew.setVisible(false);
+		buttt(addNew);
 		
-		wyczysc.setText("USUN");
-		wyczysc.setBounds(460,150,120,50);
-		frame.getContentPane().add(wyczysc);
-		//wyczysc.setVisible(false);
-		buttt(wyczysc);
+		remove.setText("USUN");
+		remove.setBounds(460,150,120,50);
+		frame.getContentPane().add(remove);
+		//remove.setVisible(false);
+		buttt(remove);
 		
 		
 		connect.setText("CONNECT");
@@ -275,26 +270,26 @@ public class mojClass extends JFrame {
 		frame.getContentPane().add(connect);
 		buttt(connect);
 		
-		userr = new JLabel();
-	    userr.setBounds(10,50,50,20);
-	    frame.getContentPane().add(userr);
-	    userr.setVisible(false);
-	    userr.setText("USER");
-	    userr.setForeground(myColor2);
+		userLabel = new JLabel();
+	    userLabel.setBounds(10,50,50,20);
+	    frame.getContentPane().add(userLabel);
+	    userLabel.setVisible(false);
+	    userLabel.setText("USER");
+	    userLabel.setForeground(myColor2);
 	    
-	    passs = new JLabel();
-	    passs.setBounds(10,70,50,20);
-	    frame.getContentPane().add(passs);
-	    passs.setVisible(false);
-	    passs.setText("PASS");
-	    passs.setForeground(myColor2);
+	    passLabel = new JLabel();
+	    passLabel.setBounds(10,70,50,20);
+	    frame.getContentPane().add(passLabel);
+	    passLabel.setVisible(false);
+	    passLabel.setText("PASS");
+	    passLabel.setForeground(myColor2);
 	    
-	    urlll = new JLabel();
-	    urlll.setBounds(10,90,50,20);
-	    frame.getContentPane().add(urlll);
-	    urlll.setVisible(false);
-	    urlll.setText("URL");
-	    urlll.setForeground(myColor2);
+	    urlLabel = new JLabel();
+	    urlLabel.setBounds(10,90,50,20);
+	    frame.getContentPane().add(urlLabel);
+	    urlLabel.setVisible(false);
+	    urlLabel.setText("URL");
+	    urlLabel.setForeground(myColor2);
 	    
 	    ex = new JLabel();
 	    ex.setBounds(10,110,30,20);
@@ -357,10 +352,10 @@ public class mojClass extends JFrame {
 	    if(status.contains("true"))
 	    {
 	    	connect2();
-	    	wybierz.setVisible(true);
-	    	dodajNowa.setVisible(true);
-	    	wyczysc.setVisible(true);
-	    	jComboBox1.setVisible(true);
+	    	select.setVisible(true);
+	    	addNew.setVisible(true);
+	    	remove.setVisible(true);
+	    	jSelectConfig.setVisible(true);
 	    	jComboBox2.setVisible(false);
 	    	
 	    	jtfURL.setVisible(false);
@@ -374,9 +369,9 @@ public class mojClass extends JFrame {
 	    {
 	    
 	    
-	    wybierz.setVisible(false);
-    	dodajNowa.setVisible(false);
-    	wyczysc.setVisible(false);
+	    select.setVisible(false);
+    	addNew.setVisible(false);
+    	remove.setVisible(false);
 	    
 	    }
 	    
@@ -389,8 +384,8 @@ public class mojClass extends JFrame {
 		niema=false;
 		
 		
-		wybranaKonfig = jComboBox2.getSelectedItem().toString(); // STRING SAVE1
-		wybranyIndex=jComboBox2.getSelectedIndex();
+		selectConfig = jComboBox2.getSelectedItem().toString(); // STRING SAVE1
+		selectIndex=jComboBox2.getSelectedIndex();
 		
 		if(jComboBox2.getSelectedItem().toString().contains("NOWA"))
 		{
@@ -406,23 +401,23 @@ public class mojClass extends JFrame {
 		
 		getItems(); // połączenie z url z SAVE0 lub pobranie z jTextField
 			
-		//if(jComboBox1.getItemCount()!=0 )
+		//if(jSelectConfig.getItemCount()!=0 )
 		if(!niema )
 		{
-			if(jComboBox1.getItemCount()>0){
-			wybierz.setVisible(true);
-			wyczysc.setVisible(true);}
+			if(jSelectConfig.getItemCount()>0){
+			select.setVisible(true);
+			remove.setVisible(true);}
 			
-			dodajNowa.setVisible(true);
+			addNew.setVisible(true);
 			
 			connect.setVisible(false);
 			jtfURL.setVisible(false);
 			jtfUSER.setVisible(false);
 			jtfPASS.setVisible(false);
 			
-			userr.setVisible(false);
-			passs.setVisible(false);
-			urlll.setVisible(false);
+			userLabel.setVisible(false);
+			passLabel.setVisible(false);
+			urlLabel.setVisible(false);
 			ex.setVisible(false);
 			ex2.setVisible(false);
 			st.setText("STATUS : "+"CONNECTED");
@@ -436,36 +431,36 @@ public class mojClass extends JFrame {
 		
 	}
 	
-	void getItems() // Ladowanie do jComboBox1 z bazy danych
+	void getItems() // Ladowanie do jSelectConfig z bazy danych
 	{
 		if(jComboBox2.getItemCount()!=0)
 		{if(jComboBox2.getSelectedItem().toString().contains("NOWA"))
 		{
-			downURL = jtfURL.getText();
-			downUSER = jtfUSER.getText();
-			downPASS = jtfPASS.getText();
+			URL = jtfURL.getText();
+			USERNAME = jtfUSER.getText();
+			PASSWORD = jtfPASS.getText();
 		}
 		}
 		
 		try
 		{
 			
-			con = DriverManager.getConnection(downURL,downUSER,downPASS);
+			connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
 			
-			requete = con.createStatement();
+			statement = connection.createStatement();
 			
 			//ResultSet myRs = myStmt.executeQuery("select * from mojebaby");
 			
-			DatabaseMetaData md = con.getMetaData();
+			DatabaseMetaData md = connection.getMetaData();
 			
-			rs =md.getTables(null,null,null,null);					
+			resultset =md.getTables(null,null,null,null);					
 			
-			while(rs.next())
+			while(resultset.next())
 			{
-			    jComboBox1.addItem(rs.getString(3));
+			    jSelectConfig.addItem(resultset.getString(3));
 			 
 			}
-			con.close();
+			connection.close();
 		}
 		catch (Exception exc)
 		{
@@ -490,12 +485,7 @@ public class mojClass extends JFrame {
 							connect(); 
 				      }};
 				      
-				      Thread t2 = new Thread("New Thread2") {public void run(){
-					      
-				    	  	
-
-				      }};
-				      
+				     				      
 				      t1.start();
 				      try
 				      {
@@ -515,7 +505,7 @@ public class mojClass extends JFrame {
 				if(!st.getText().toString().contains("DISCONNECTED"))
 				{
 				jComboBox2.setVisible(false);
-				jComboBox1.setVisible(true);
+				jSelectConfig.setVisible(true);
 				
 				coffanie.setVisible(true);
 				}
@@ -548,7 +538,7 @@ public class mojClass extends JFrame {
                 {
                     //Element element = (Element) node; // Element półki
                     //String urrl= element.getElementsByTagName("Url").item(0).getTextContent(); 
-                    //daneProfile.add(urrl);
+                    //dataProfile.add(urrl);
                     int l =i+1;
                 	jComboBox2.addItem("SAVE"+l);
                     
@@ -581,9 +571,9 @@ public class mojClass extends JFrame {
     		
     		pobierzUserPassUrl(wybor); // sciaganie danych z wybranego trybu
     		
-    		System.out.println(downUSER);
-    		System.out.println(downPASS);
-    		System.out.println(downURL);
+    		System.out.println(USERNAME);
+    		System.out.println(PASSWORD);
+    		System.out.println(URL);
     	
     }
 	
@@ -603,9 +593,9 @@ public class mojClass extends JFrame {
                     if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
                     {
                         Element element = (Element) node; // Element półki
-                         downUSER= element.getElementsByTagName("User").item(0).getTextContent(); 
-                         downPASS= element.getElementsByTagName("Password").item(0).getTextContent(); 
-                         downURL = element.getElementsByTagName("Url").item(0).getTextContent(); 
+                         USERNAME= element.getElementsByTagName("User").item(0).getTextContent(); 
+                         PASSWORD= element.getElementsByTagName("Password").item(0).getTextContent(); 
+                         URL = element.getElementsByTagName("Url").item(0).getTextContent(); 
                     }
                     
                     
@@ -693,9 +683,9 @@ public class mojClass extends JFrame {
 		        	jtfURL.setVisible(true);
 		    	    jtfUSER.setVisible(true);
 		    	    jtfPASS.setVisible(true);
-		    	    userr.setVisible(true);
-		    	    passs.setVisible(true);
-		    	    urlll.setVisible(true);
+		    	    userLabel.setVisible(true);
+		    	    passLabel.setVisible(true);
+		    	    urlLabel.setVisible(true);
 		    	    ex.setVisible(true);
 		    	    ex2.setVisible(true);
 		    	    dellete.setVisible(false);
@@ -705,9 +695,9 @@ public class mojClass extends JFrame {
 		    	    jtfUSER.setVisible(false);
 		    	    jtfPASS.setVisible(false);
 		    	    
-		    	    userr.setVisible(false);
-		    	    passs.setVisible(false);
-		    	    urlll.setVisible(false);
+		    	    userLabel.setVisible(false);
+		    	    passLabel.setVisible(false);
+		    	    urlLabel.setVisible(false);
 		    	    ex.setVisible(false);
 		    	    ex2.setVisible(false);
 		    	    
@@ -728,15 +718,15 @@ public class mojClass extends JFrame {
 				
 				sprawdzenieProfile();
 				
-				jComboBox1.setVisible(false);
+				jSelectConfig.setVisible(false);
 				jComboBox2.setVisible(true);
 				connect.setVisible(true);
-				wybierz.setVisible(false);
-		    	dodajNowa.setVisible(false);
-		    	wyczysc.setVisible(false);
+				select.setVisible(false);
+		    	addNew.setVisible(false);
+		    	remove.setVisible(false);
 		    	coffanie.setVisible(false);
 		    	st.setText("STATUS : DISCONNECTED");
-		    	jComboBox1.removeAllItems();
+		    	jSelectConfig.removeAllItems();
 				
 				
 			}});
@@ -803,7 +793,7 @@ public class mojClass extends JFrame {
 	    }
 	
 	
-	void addNewBooo() // Czytanie z jtf i przekazanie do addNewBook
+	void addNewBooo() // Czytanie z jtfSearch i przekazanie do addNewBook
 	 {
 		 	
 		//Thread thread3 = new Thread("New Thread") {
@@ -910,8 +900,8 @@ public class mojClass extends JFrame {
         
         lang = (Element) languages.item(0);
         Node name = lang.getElementsByTagName("Numer").item(0).getFirstChild();
-        //System.out.println(numerKonfig);   
-        //System.out.print("ZAPIS "+ wybranaKonfig+"do XML");
+        //System.out.println(numberOfConfig);   
+        //System.out.print("ZAPIS "+ selectConfig+"do XML");
         
         
         //NodeList nodeList = doc.getElementsByTagName("Sprawdzenie"); // Gdzie to będzie szukane
@@ -927,15 +917,15 @@ public class mojClass extends JFrame {
         */
        
         
-        //if(wybranyIndex!=0)
+        //if(selectIndex!=0)
        // { //////////////
         // Zapis SAVE1 do XML po kliknieciu DODAJ
-       int uuu = wybranyIndex+1;
-       String aaa=String.valueOf(uuu);// 0,1,2 --> 1,2,3
-       String kkk = wybranaKonfig+aaa;
+       int uuu = selectIndex+1;
+       String varCheckOne=String.valueOf(uuu);// 0,1,2 --> 1,2,3
+       String kkk = selectConfig+varCheckOne;
        System.out.println(kkk);
         name.setNodeValue(kkk); //ZAPIS SAVE1 do XML
-        //name.setNodeValue(wybranaKonfig);
+        //name.setNodeValue(selectConfig);
        /// }else
       //  {
         	
@@ -1005,107 +995,107 @@ public class mojClass extends JFrame {
 	void zaladowanie() // ZALADOWANIE ADD,COFNIJ
 	{
 		
-		button1=new JButton("ADD");;
-	    button1.setBounds(440,90,150,40);//Polozenie na formie
-	    button1.setVisible(false);
-	    frame.getContentPane().add(button1);
-	    buttt(button1);
+		butId1=new JButton("ADD");;
+	    butId1.setBounds(440,90,150,40);//Polozenie na formie
+	    butId1.setVisible(false);
+	    frame.getContentPane().add(butId1);
+	    buttt(butId1);
 	    
-	    button2 = new JButton("DEL");
-	    button2.setBounds(440,130,150,40);//Polozenie na formie
-	    button2.setVisible(false);
-	    frame.getContentPane().add(button2);
-	    buttt(button2);
+	    butId2 = new JButton("DEL");
+	    butId2.setBounds(440,130,150,40);//Polozenie na formie
+	    butId2.setVisible(false);
+	    frame.getContentPane().add(butId2);
+	    buttt(butId2);
 	    
-	    //button3 = new JButton("GET");
-	    //button3.setBounds(210,10,100,40);//Polozenie na formie
-	    //button3.setVisible(false);
-	   // frame.getContentPane().add(button3);
+	    //butId3 = new JButton("GET");
+	    //butId3.setBounds(210,10,100,40);//Polozenie na formie
+	    //butId3.setVisible(false);
+	   // frame.getContentPane().add(butId3);
 	    
-	    button3 = new JButton("SEARCH");
-	    button3.setBounds(310,10,100,40);//Polozenie na formie
-	    button3.setVisible(false);
-	    frame.getContentPane().add(button3);
-	    buttt(button3);
+	    butId3 = new JButton("SEARCH");
+	    butId3.setBounds(310,10,100,40);//Polozenie na formie
+	    butId3.setVisible(false);
+	    frame.getContentPane().add(butId3);
+	    buttt(butId3);
 	    
-	    button4 = new JButton("COFNIJ");
-	    button4.setBounds(20,10,120,50);//Polozenie na formie
-	    button4.setVisible(false);
-	    frame.getContentPane().add(button4);
-	    buttt(button4);
+	    butId4 = new JButton("COFNIJ");
+	    butId4.setBounds(20,10,120,50);//Polozenie na formie
+	    butId4.setVisible(false);
+	    frame.getContentPane().add(butId4);
+	    buttt(butId4);
 	    
-	    button5 = new JButton("TRYB DODANIA");
-	    button5.setBounds(440,90,150,40);//Polozenie na formie
-	    button5.setVisible(false);
-	    frame.getContentPane().add(button5);
-	    buttt(button5);
+	    butId5 = new JButton("TRYB DODANIA");
+	    butId5.setBounds(440,90,150,40);//Polozenie na formie
+	    butId5.setVisible(false);
+	    frame.getContentPane().add(butId5);
+	    buttt(butId5);
 	    
-	    button6 = new JButton("TRYB USUWANIA");
-	    button6.setBounds(440,130,150,40);//Polozenie na formie
-	    button6.setVisible(false);
-	    frame.getContentPane().add(button6);
-	    buttt(button6);
+	    butId6 = new JButton("TRYB USUWANIA");
+	    butId6.setBounds(440,130,150,40);//Polozenie na formie
+	    butId6.setVisible(false);
+	    frame.getContentPane().add(butId6);
+	    buttt(butId6);
 	    
-	    button7 = new JButton("TRYB SZUKANIA");
-	    button7.setBounds(440,170,150,40);//Polozenie na formie
-	    button7.setVisible(false);
-	    frame.getContentPane().add(button7);
-	    buttt(button7);
+	    butId7 = new JButton("TRYB SZUKANIA");
+	    butId7.setBounds(440,170,150,40);//Polozenie na formie
+	    butId7.setVisible(false);
+	    frame.getContentPane().add(butId7);
+	    buttt(butId7);
 	    
-	    button8 = new JButton("WYSZYSC");
-	    button8.setBounds(460,150,120,50);//Polozenie na formie
-	    button8.setVisible(false);
-	    frame.getContentPane().add(button8);
-	    buttt(button8);
+	    butId8 = new JButton("WYSZYSC");
+	    butId8.setBounds(460,150,120,50);//Polozenie na formie
+	    butId8.setVisible(false);
+	    frame.getContentPane().add(butId8);
+	    buttt(butId8);
 	    //460,150,120,50
-	    button9 = new JButton("COFNIJ");
-	    button9.setBounds(20,30,120,50);//Polozenie na formie
-	    button9.setVisible(false);
-	    frame.getContentPane().add(button9);
-	    buttt(button9);
+	    butId9 = new JButton("COFNIJ");
+	    butId9.setBounds(20,30,120,50);//Polozenie na formie
+	    butId9.setVisible(false);
+	    frame.getContentPane().add(butId9);
+	    buttt(butId9);
 	    
 	   
-	    jtf = new JTextField();
-	    jtf.setBounds(440,70,150,20);
-	    frame.getContentPane().add(jtf);
-	    jtf.setVisible(false);
+	    jtfSearch = new JTextField();
+	    jtfSearch.setBounds(440,70,150,20);
+	    frame.getContentPane().add(jtfSearch);
+	    jtfSearch.setVisible(false);
 	    
-	    jtf2 = new JTextField();
-	    jtf2.setBounds(40,60,100,20);//Polozenie na formie
-	    frame.getContentPane().add(jtf2);
-	    jtf2.setVisible(false);
+	    jtf_ID2 = new JTextField();
+	    jtf_ID2.setBounds(40,60,100,20);//Polozenie na formie
+	    frame.getContentPane().add(jtf_ID2);
+	    jtf_ID2.setVisible(false);
 	    
-	    jtf3 = new JTextField();
-	    jtf3.setBounds(140,60,100,20);//Polozenie na formie
-	    frame.getContentPane().add(jtf3);
-	    jtf3.setVisible(false);
+	    jtf_ID3 = new JTextField();
+	    jtf_ID3.setBounds(140,60,100,20);//Polozenie na formie
+	    frame.getContentPane().add(jtf_ID3);
+	    jtf_ID3.setVisible(false);
 	    
-	    jtf4 = new JTextField();
-	    jtf4.setBounds(240,60,100,20);//Polozenie na formie
-	    frame.getContentPane().add(jtf4);
-	    jtf4.setVisible(false);
+	    jtf_ID4 = new JTextField();
+	    jtf_ID4.setBounds(240,60,100,20);//Polozenie na formie
+	    frame.getContentPane().add(jtf_ID4);
+	    jtf_ID4.setVisible(false);
 	    
-	    jtf5 = new JTextField();
-	    jtf5.setBounds(340,60,100,20);//Polozenie na formie
-	    frame.getContentPane().add(jtf5);
-	    jtf5.setVisible(false);
-	    
-	    
-	    jtf52 = new JTextField();
-	    jtf52.setBounds(440,60,100,20);//Polozenie na formie
-	    frame.getContentPane().add(jtf52);
-	    jtf52.setVisible(false);
+	    jtf_ID5 = new JTextField();
+	    jtf_ID5.setBounds(340,60,100,20);//Polozenie na formie
+	    frame.getContentPane().add(jtf_ID5);
+	    jtf_ID5.setVisible(false);
 	    
 	    
-	    jtf6 = new JTextField();
-	    jtf6.setBounds(10,60,30,20);//Polozenie na formie
-	    frame.getContentPane().add(jtf6);
-	    jtf6.setVisible(false);
+	    jtf_ID6 = new JTextField();
+	    jtf_ID6.setBounds(440,60,100,20);//Polozenie na formie
+	    frame.getContentPane().add(jtf_ID6);
+	    jtf_ID6.setVisible(false);
+	    
+	    
+	    jtf_ID1 = new JTextField();
+	    jtf_ID1.setBounds(10,60,30,20);//Polozenie na formie
+	    frame.getContentPane().add(jtf_ID1);
+	    jtf_ID1.setVisible(false);
 	   
-	    jtf7 = new JTextField();
-	    jtf7.setBounds(440,70,150,20);//Polozenie na formie
-	    frame.getContentPane().add(jtf7);
-	    jtf7.setVisible(false);
+	    jtfDelete = new JTextField();
+	    jtfDelete.setBounds(440,70,150,20);//Polozenie na formie
+	    frame.getContentPane().add(jtfDelete);
+	    jtfDelete.setVisible(false);
 	   // 440,90,150,40
 		
 		
@@ -1113,17 +1103,17 @@ public class mojClass extends JFrame {
 
 	void zaladowanie2() // ZALADOWANIE TABELI id,sklep,model 
 	{
-		mojList2.clear();
+		columnNames.clear();
 		
 		try{
 	    	
   		
-	  con = DriverManager.getConnection(downURL,downUSER,downPASS);
-      requete = con.createStatement();
-      rs = requete.executeQuery("select * from "+mojList.get(0).toString());
+	  connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+      statement = connection.createStatement();
+      resultset = statement.executeQuery("select * from "+selectedTable.get(0).toString());
       
-      //System.out.println(rs.toString());
-      ResultSetMetaData md = rs.getMetaData();
+      //System.out.println(resultset.toString());
+      ResultSetMetaData md = resultset.getMetaData();
       int columnCount = md.getColumnCount();
       
       //System.out.println(columnCount);
@@ -1134,22 +1124,22 @@ public class mojClass extends JFrame {
       for(int i=1; i<=columnCount; i++)
           {columns.add(md.getColumnName(i));
           // Dodanie nazw tabeli do ArrayList 2 <!!!> WAZNE
-          mojList2.add(md.getColumnName(i));
+          columnNames.add(md.getColumnName(i));
           }
-    System.out.println(mojList2);
+    System.out.println(columnNames);
      
       Vector data = new Vector();
       Vector row;
 
       //store row data
-      while(rs.next())
+      while(resultset.next())
       {
           row = new Vector(columnCount);
           
                         
           	for(int t=1; t<=columnCount; t++) // nie to
           	{
-              row.add(rs.getString(t));
+              row.add(resultset.getString(t));
               //System.out.println(row);
              
              }
@@ -1184,12 +1174,12 @@ public class mojClass extends JFrame {
        jTable.setRowSorter(rowSorter);
       
        
-       jtf.getDocument().addDocumentListener(new DocumentListener(){
+       jtfSearch.getDocument().addDocumentListener(new DocumentListener(){
 
            @Override
            public void insertUpdate(DocumentEvent e) {
            	
-               String text = jtf.getText();
+               String text = jtfSearch.getText();
 
                if (text.trim().length() == 0) {
                    rowSorter.setRowFilter(null);
@@ -1202,7 +1192,7 @@ public class mojClass extends JFrame {
            public void removeUpdate(DocumentEvent e) {
            	
            	
-               String text = jtf.getText();
+               String text = jtfSearch.getText();
 
                if (text.trim().length() == 0) {
                    rowSorter.setRowFilter(null);
@@ -1247,7 +1237,7 @@ public class mojClass extends JFrame {
 	{
 	
 		
-		wybierz.addActionListener(new ActionListener(){
+		select.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e)
 			{
@@ -1255,26 +1245,26 @@ public class mojClass extends JFrame {
 				//zaladowanie();
 				coffanie.setVisible(false);
 				
-				mojList.add(jComboBox1.getSelectedItem().toString());
+				selectedTable.add(jSelectConfig.getSelectedItem().toString());
 			
-				jComboBox1.setVisible(false);
-				wybierz.setVisible(false);
-				dodajNowa.setVisible(false);
-				wyczysc.setVisible(false);
+				jSelectConfig.setVisible(false);
+				select.setVisible(false);
+				addNew.setVisible(false);
+				remove.setVisible(false);
 				
-				//System.out.println(jComboBox1.getSelectedItem());
-				if(jComboBox1.getSelectedItem().equals("Sprzedane"))
+				//System.out.println(jSelectConfig.getSelectedItem());
+				if(jSelectConfig.getSelectedItem().equals("Sprzedane"))
 				{
 					
-				//button6.setVisible(true);
+				//butId6.setVisible(true);
 				
 				}else
 				{
-					button5.setVisible(true);
-					button6.setVisible(true);
+					butId5.setVisible(true);
+					butId6.setVisible(true);
 				}
-				button7.setVisible(true);
-				button4.setVisible(true);
+				butId7.setVisible(true);
+				butId4.setVisible(true);
 				
 			
 				zaladowanie2(); // dodanie tabeli do okienka i td
@@ -1285,13 +1275,13 @@ public class mojClass extends JFrame {
 		
 	void dodajMetoda() // Przejscie do okienka miesci zmiana2
 	{
-			dodajNowa.addActionListener(new ActionListener(){
+			addNew.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e)
 			{
-					if(wybranyIndex!=0)
+					if(selectIndex!=0)
 					{
-						zmiana2(); // wybranaKonfig juz jest tam umieszczona wybranaKonfig to zczytane z ComboBox
+						zmiana2(); // selectConfig juz jest tam umieszczona selectConfig to zczytane z ComboBox
 					}
 				frame.setVisible(false);
 				try {
@@ -1310,19 +1300,19 @@ public class mojClass extends JFrame {
 	
 	void wyczyscMetoda()
 	{
-		wyczysc.addActionListener(new ActionListener(){
+		remove.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e)
 			{
 				
-				//jComboBox1.setVisible(false);
-				wybierz.setVisible(false);
-				dodajNowa.setVisible(false);
-				wyczysc.setVisible(false);
+				//jSelectConfig.setVisible(false);
+				select.setVisible(false);
+				addNew.setVisible(false);
+				remove.setVisible(false);
 				
 				coffanie.setVisible(false);
-				button8.setVisible(true);
-				button9.setVisible(true);
+				butId8.setVisible(true);
+				butId9.setVisible(true);
 				
 				
 			}
@@ -1332,17 +1322,17 @@ public class mojClass extends JFrame {
 	//------------------------------------------------------------
 	// NOWE METODY
 	//------------------------------------------------------------
-	void connect2() // Laduje numer z XML SAVE0 --> 0 i pobiera z bazy do jComboBox1
+	void connect2() // Laduje numer z XML SAVE0 --> 0 i pobiera z bazy do jSelectConfig
 	{
 		czytajNumer2();
 		
 		getItems(); // połączenie z url z SAVE0 lub pobranie z jTextField
 			
-		if(jComboBox1.getItemCount()!=0)
+		if(jSelectConfig.getItemCount()!=0)
 		{
-			wybierz.setVisible(true);
-			dodajNowa.setVisible(true);
-			wyczysc.setVisible(true);
+			select.setVisible(true);
+			addNew.setVisible(true);
+			remove.setVisible(true);
 			connect.setVisible(false);
 			
 			jtfURL.setVisible(false);
@@ -1382,9 +1372,9 @@ public class mojClass extends JFrame {
 	                    if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
 	                    {
 	                        Element element = (Element) node; // Element półki
-	                         downUSER= element.getElementsByTagName("User").item(0).getTextContent(); 
-	                         downPASS= element.getElementsByTagName("Password").item(0).getTextContent(); 
-	                         downURL = element.getElementsByTagName("Url").item(0).getTextContent(); 
+	                         USERNAME= element.getElementsByTagName("User").item(0).getTextContent(); 
+	                         PASSWORD= element.getElementsByTagName("Password").item(0).getTextContent(); 
+	                         URL = element.getElementsByTagName("Url").item(0).getTextContent(); 
 	                    }
 	          
 	            } catch (ParserConfigurationException ex) {
@@ -1417,7 +1407,7 @@ public class mojClass extends JFrame {
 	                if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
 	                {
 	                    Element element = (Element) node; // Element półki
-	                    numerKonfig= element.getElementsByTagName("Numer").item(0).getTextContent();
+	                    numberOfConfig= element.getElementsByTagName("Numer").item(0).getTextContent();
 	                }
 	               
 	        
@@ -1428,14 +1418,14 @@ public class mojClass extends JFrame {
 	        } catch (IOException ex) {
 	            ex.printStackTrace(System.out);
 	        }
-	    	 System.out.print(numerKonfig);
+	    	 System.out.print(numberOfConfig);
 	    	
-	    	String del = numerKonfig;
+	    	String del = numberOfConfig;
 	    	del=del.substring(4, 5);
 	    	//System.out.println(del);
 	    	int del2=Integer.valueOf(del);
 	    	
-	    	//if(numerKonfig=="NOWA")
+	    	//if(numberOfConfig=="NOWA")
 	    	//{
 	    	//	System.out.println("NOWA + "+del2);
 	    	//   return del2;
@@ -1527,9 +1517,9 @@ public class mojClass extends JFrame {
            /* if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
             {
                 Element element = (Element) node; // Element półki
-                 downUSER= element.getElementsByTagName("User").item(0).getTextContent(); 
-                 downPASS= element.getElementsByTagName("Password").item(0).getTextContent(); 
-                 downURL = element.getElementsByTagName("Url").item(0).getTextContent(); 
+                 USERNAME= element.getElementsByTagName("User").item(0).getTextContent(); 
+                 PASSWORD= element.getElementsByTagName("Password").item(0).getTextContent(); 
+                 URL = element.getElementsByTagName("Url").item(0).getTextContent(); 
             }*/
     	   node.getParentNode().removeChild(node);
            writeDocument(doc);
@@ -1543,27 +1533,27 @@ public class mojClass extends JFrame {
 	
 	// Realizowac WYSZYSC 
 	
-	void przycisk8() // WYCZYSC
+	void przycisk8() // remove
 	{
-		button8.addActionListener(new ActionListener(){
+		butId8.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e)
 			{
-				jComboBox1.setVisible(false);
-				button8.setVisible(false);
+				jSelectConfig.setVisible(false);
+				butId8.setVisible(false);
 				
 				try
 				{
 					
-					con = DriverManager.getConnection(downURL,downUSER,downPASS);
+					connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
 					
-					requete = con.createStatement();
+					statement = connection.createStatement();
 					
-					String myTableName ="DROP TABLE "+jComboBox1.getSelectedItem().toString();
+					String myTableName ="DROP TABLE "+jSelectConfig.getSelectedItem().toString();
 					
-					System.out.print(jComboBox1.getSelectedItem().toString());
+					System.out.print(jSelectConfig.getSelectedItem().toString());
 					
-					requete.executeUpdate(myTableName);
+					statement.executeUpdate(myTableName);
 					
 					st.setText("STATUS : DEL COMPLETE");
 					
@@ -1579,30 +1569,30 @@ public class mojClass extends JFrame {
 	}
 	void przycisk9() // COFNIJ - po wyczyszczeniu
 	{
-		button9.addActionListener(new ActionListener(){
+		butId9.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e)
 			{
 				st.setText("STATUS : CONNECTED");
 				coffanie.setVisible(true);
-				button8.setVisible(false);
-				button9.setVisible(false);
+				butId8.setVisible(false);
+				butId9.setVisible(false);
 				
-				jComboBox1.removeAllItems();
+				jSelectConfig.removeAllItems();
 				getItems();
 				
-				if(jComboBox1.getItemCount()==0)
+				if(jSelectConfig.getItemCount()==0)
 					{
-					wybierz.setVisible(false);
-					wyczysc.setVisible(false);
+					select.setVisible(false);
+					remove.setVisible(false);
 					}else
 					{
-						wybierz.setVisible(true);
-						wyczysc.setVisible(true);
+						select.setVisible(true);
+						remove.setVisible(true);
 					}
 				
-				jComboBox1.setVisible(true);
-				dodajNowa.setVisible(true);
+				jSelectConfig.setVisible(true);
+				addNew.setVisible(true);
 				
 				
 			}
@@ -1613,33 +1603,33 @@ public class mojClass extends JFrame {
 	{
 		// TRYB DODANIA
 		
-		button5.addActionListener(new ActionListener(){
+		butId5.addActionListener(new ActionListener(){
 			
 	    	@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				
-	    		if(bbb==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
+	    		if(varCheckTwo==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
 	    		{
-	    			bbb=false;
-	    			//button5.setText("GOTOWE");
-	    			button4.setVisible(false);
-	    			button5.setVisible(false);
-	    			button6.setVisible(false);
-	    			button7.setVisible(false);
-	    			//button5.setVisible(false);
+	    			varCheckTwo=false;
+	    			//butId5.setText("GOTOWE");
+	    			butId4.setVisible(false);
+	    			butId5.setVisible(false);
+	    			butId6.setVisible(false);
+	    			butId7.setVisible(false);
+	    			//butId5.setVisible(false);
 	    			
-	    			//button9.setVisible(false);
+	    			//butId9.setVisible(false);
 	    			
-	    			button1.setVisible(true);
+	    			butId1.setVisible(true);
 	    			
-	    			 jtf2.setVisible(true);
-	    			 jtf3.setVisible(true);
-	    			 jtf4.setVisible(true);
-	    			 jtf5.setVisible(true);
-	    			 jtf6.setVisible(true);
+	    			 jtf_ID2.setVisible(true);
+	    			 jtf_ID3.setVisible(true);
+	    			 jtf_ID4.setVisible(true);
+	    			 jtf_ID5.setVisible(true);
+	    			 jtf_ID1.setVisible(true);
 	    			 
-	    			 jtf52.setVisible(true);
+	    			 jtf_ID6.setVisible(true);
 	    			 
 	    			 scroller.setBounds(000, 90, 400, 280);
 	    			
@@ -1652,20 +1642,20 @@ public class mojClass extends JFrame {
 	    		
 	    		{	
 	    			
-	    			bbb=true;
-	    			button5.setText("TRYB DODANIA");
+	    			varCheckTwo=true;
+	    			butId5.setText("TRYB DODANIA");
 	    			
-	    			//button5.setVisible(true);
+	    			//butId5.setVisible(true);
 	    			
-	    			button1.setVisible(false);
+	    			butId1.setVisible(false);
 	    			
-	    		 jtf2.setVisible(false);
-	   			 jtf3.setVisible(false);
-	   			 jtf4.setVisible(false);
-	   			 jtf5.setVisible(false);
-	   			 jtf6.setVisible(false);
+	    		 jtf_ID2.setVisible(false);
+	   			 jtf_ID3.setVisible(false);
+	   			 jtf_ID4.setVisible(false);
+	   			 jtf_ID5.setVisible(false);
+	   			 jtf_ID1.setVisible(false);
 	   			 
-	   			 jtf52.setVisible(false);
+	   			 jtf_ID6.setVisible(false);
 	   			
 	   			 scroller.setBounds(000, 70, 400, 300);
 	    			
@@ -1682,57 +1672,57 @@ public class mojClass extends JFrame {
 	void przycisk1() // PRZYCISK - ADD
 	{
 		// DODAJ
-		button1.addActionListener(new ActionListener() 
+		butId1.addActionListener(new ActionListener() 
 		{
 			@Override
             public void actionPerformed(ActionEvent e) {
             	
             	
-            	 button1.setVisible(false);
-    			 jtf6.setVisible(false);
-            	 jtf2.setVisible(false);
-	   			 jtf3.setVisible(false);
-	   			 jtf4.setVisible(false);
-	   			 jtf5.setVisible(false);
-	   			 jtf52.setVisible(false);
+            	 butId1.setVisible(false);
+    			 jtf_ID1.setVisible(false);
+            	 jtf_ID2.setVisible(false);
+	   			 jtf_ID3.setVisible(false);
+	   			 jtf_ID4.setVisible(false);
+	   			 jtf_ID5.setVisible(false);
+	   			 jtf_ID6.setVisible(false);
 	   			
 	   			 scroller.setBounds(000, 70, 400, 300);
-            	 button5.setText("TRYB DODANIA");
+            	 butId5.setText("TRYB DODANIA");
             	
             	
             	
             	
-            	String pobieranie=mojList.get(0).toString();
-        		String razem ="select * from "+pobieranie;
-            	String razem2 = "insert into "+pobieranie;
+            	String getTable=selectedTable.get(0).toString();
+        		String razem ="select * from "+getTable;
+            	String razem2 = "insert into "+getTable;
             	
-            	String sql ="insert into "+mojList.get(0).toString() //zmienic to co w nawiasach
+            	String sql ="insert into "+selectedTable.get(0).toString() //zmienic to co w nawiasach
 						//+"(id,brand,model,cena,sklep)"
-						+"("+mojList2.get(0).toString()+','+mojList2.get(1).toString()+','+mojList2.get(2).toString()+','+mojList2.get(3).toString()+','+mojList2.get(4).toString()+','+mojList2.get(5).toString()+")"
-						//+aaa
-						+"values ('"+jtf6.getText()+"','"+jtf2.getText()+"','"+jtf3.getText()+"','"+jtf4.getText().toString()+"','"+jtf5.getText()+"','"+jtf52.getText()+"')"; //dodanie numeru
+						+"("+columnNames.get(0).toString()+','+columnNames.get(1).toString()+','+columnNames.get(2).toString()+','+columnNames.get(3).toString()+','+columnNames.get(4).toString()+','+columnNames.get(5).toString()+")"
+						//+varCheckOne
+						+"values ('"+jtf_ID1.getText()+"','"+jtf_ID2.getText()+"','"+jtf_ID3.getText()+"','"+jtf_ID4.getText().toString()+"','"+jtf_ID5.getText()+"','"+jtf_ID6.getText()+"')"; //dodanie numeru
             	
-            	//System.out.println("("+mojList2.get(0).toString()+','+mojList2.get(1).toString()+','+mojList2.get(2).toString()+','+mojList2.get(3).toString()+','+mojList2.get(4).toString()+")");
+            	//System.out.println("("+columnNames.get(0).toString()+','+columnNames.get(1).toString()+','+columnNames.get(2).toString()+','+columnNames.get(3).toString()+','+columnNames.get(4).toString()+")");
         		
-            	///System.out.println("values ('"+jtf6.getText().toString()+"','"+jtf2.getText().toString()+"','"+jtf3.getText().toString()+"','"+jtf4.getText().toString()+"','"+jtf5.getText().toString()+"')"); //dodanie numeru
+            	///System.out.println("values ('"+jtf_ID1.getText().toString()+"','"+jtf_ID2.getText().toString()+"','"+jtf_ID3.getText().toString()+"','"+jtf_ID4.getText().toString()+"','"+jtf_ID5.getText().toString()+"')"); //dodanie numeru
             	
-            	if(bbb==false)
+            	if(varCheckTwo==false)
             	{
-            		bbb= true;
-            		button5.setVisible(true);
-            		button4.setVisible(true);
-            		button6.setVisible(true);
-            		button7.setVisible(true);
+            		varCheckTwo= true;
+            		butId5.setVisible(true);
+            		butId4.setVisible(true);
+            		butId6.setVisible(true);
+            		butId7.setVisible(true);
             		
-            	if(jtf6.getText().length()!=0){
+            	if(jtf_ID1.getText().length()!=0){
             
             
             try{
             
-               con = DriverManager.getConnection(downURL,downUSER,downPASS);
-               requete = con.createStatement();
-               requete.executeQuery(razem);// zmienic to co w nawiasach
-               requete.executeUpdate(sql);
+               connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+               statement = connection.createStatement();
+               statement.executeQuery(razem);// zmienic to co w nawiasach
+               statement.executeUpdate(sql);
             		
             		
             	}
@@ -1746,12 +1736,12 @@ public class mojClass extends JFrame {
             }	
             	//--------------------------------------------
             	//System.out.println("ADD complete");
-            	jtf2.setText("");
-        		jtf3.setText("");
-        		jtf4.setText("");
-        		jtf5.setText("");
-        		jtf6.setText("");
-        		jtf52.setText("");
+            	jtf_ID2.setText("");
+        		jtf_ID3.setText("");
+        		jtf_ID4.setText("");
+        		jtf_ID5.setText("");
+        		jtf_ID1.setText("");
+        		jtf_ID6.setText("");
         		
         		frame.getContentPane().remove(scroller);
         		frame.repaint();
@@ -1767,7 +1757,7 @@ public class mojClass extends JFrame {
 		
 		// COFNIJ
 		
-		button4.addActionListener(new ActionListener(){
+		butId4.addActionListener(new ActionListener(){
 			
 	    	@Override
 			public void actionPerformed(ActionEvent e)
@@ -1775,27 +1765,27 @@ public class mojClass extends JFrame {
 	    		
 	    
 		// Unvisible
-		button4.setVisible(false);
-		button5.setVisible(false);
-		button6.setVisible(false);
-		button7.setVisible(false);
+		butId4.setVisible(false);
+		butId5.setVisible(false);
+		butId6.setVisible(false);
+		butId7.setVisible(false);
 		scroller.setVisible(false);
 		
 		// Visible
-		jComboBox1.setVisible(true);
-		wybierz.setVisible(true);
-		dodajNowa.setVisible(true);
-		wyczysc.setVisible(true);
+		jSelectConfig.setVisible(true);
+		select.setVisible(true);
+		addNew.setVisible(true);
+		remove.setVisible(true);
 		coffanie.setVisible(true);
 		
 		
-		mojList.remove(0); // WYCZYSZCZENIE z listy, nazwy tabeli z JDBC - new1
+		selectedTable.remove(0); // WYCZYSZCZENIE z listy, nazwy tabeli z JDBC - new1
 		
 		
 		
-		//for(int i=0;i<mojList.size();i++)
+		//for(int i=0;i<selectedTable.size();i++)
 		//{
-		//	mojList.remove(i);
+		//	selectedTable.remove(i);
 		//}
 			
 		
@@ -1810,40 +1800,40 @@ public class mojClass extends JFrame {
 	{
 		//TRYB DELETE
 		
-		button6.addActionListener(new ActionListener(){
+		butId6.addActionListener(new ActionListener(){
 			
 	    	@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				
-	    		if(bbb==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
+	    		if(varCheckTwo==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
 	    		{
-	    			bbb=false;
-	    			//button6.setText("GOTOWE");
-	    			button4.setVisible(false);
+	    			varCheckTwo=false;
+	    			//butId6.setText("GOTOWE");
+	    			butId4.setVisible(false);
 	    			
-	    			button5.setVisible(false);
-	    			button6.setVisible(false);
-	    			button7.setVisible(false);
+	    			butId5.setVisible(false);
+	    			butId6.setVisible(false);
+	    			butId7.setVisible(false);
 	    			
-	    			jtf7.setVisible(true);
+	    			jtfDelete.setVisible(true);
 	    			
-	    			button2.setVisible(true);
+	    			butId2.setVisible(true);
 	    			
 	    			
-	    			jtf7.setVisible(true);
+	    			jtfDelete.setVisible(true);
 	    			 
 	    			
 	    		}
 	    		else
 	    		{
 	    		
-	    		bbb=true;
-	    		jtf7.setVisible(false);
+	    		varCheckTwo=true;
+	    		jtfDelete.setVisible(false);
 	    		
-				button6.setText("TRYB USUWANIA");
+				butId6.setText("TRYB USUWANIA");
 				
-				button2.setVisible(false);
+				butId2.setVisible(false);
 				
 				
 			}
@@ -1858,40 +1848,40 @@ public class mojClass extends JFrame {
 	{
 		//DELETE
 		
-		button2.addActionListener(new ActionListener() {
+		butId2.addActionListener(new ActionListener() {
 
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	        
 	        	
-	        	String pobieranie=mojList.get(0).toString();
+	        	String getTable=selectedTable.get(0).toString();
 	        	
-	        	if(bbb==false)
+	        	if(varCheckTwo==false)
 	        	{
-	        		bbb=true;
+	        		varCheckTwo=true;
                    
-	        		button5.setVisible(true);
-              		button4.setVisible(true);
-            		button6.setVisible(true);
-            		button7.setVisible(true);
+	        		butId5.setVisible(true);
+              		butId4.setVisible(true);
+            		butId6.setVisible(true);
+            		butId7.setVisible(true);
 	        	try
 	    		{
 	        		//c.remove(scroller);
 	    			//Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false","root","1029384756qaz");
 	    			
 	    			//Statement myStmt = myConn.createStatement();
-	        		//Connection con ;
-         		     //Statement requete ;
-         		     //ResultSet rs ;
+	        		//Connection connection ;
+         		     //Statement statement ;
+         		     //ResultSet resultset ;
       		
-      		con = DriverManager.getConnection(downURL,downUSER,downPASS);
+      		connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
              		
              				
-             requete = con.createStatement();
+             statement = connection.createStatement();
 	    			
-	    			String sql = "delete from "+pobieranie+" where id=' "+jtf7.getText()+" '"; // zmienic 
+	    			String sql = "delete from "+getTable+" where id=' "+jtfDelete.getText()+" '"; // zmienic 
 	    			
-	    			requete.executeUpdate(sql);
+	    			statement.executeUpdate(sql);
 	    						
 	    			System.out.println("DELETE complete");
 	    			
@@ -1910,10 +1900,10 @@ public class mojClass extends JFrame {
 	    		}
 	        	}
 	        	
-	        	button2.setVisible(false);
-	        	jtf7.setVisible(false);
-	        	button6.setText("TRYB USUWANIA");
-	        	jtf7.setText("");
+	        	butId2.setVisible(false);
+	        	jtfDelete.setVisible(false);
+	        	butId6.setText("TRYB USUWANIA");
+	        	jtfDelete.setText("");
 	        	
 	        }
 	    });
@@ -1923,51 +1913,51 @@ public class mojClass extends JFrame {
 	{
 		//TRYB SZUKAJ
 		
-			button7.addActionListener(new ActionListener(){
+			butId7.addActionListener(new ActionListener(){
 			
 	    	@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				
-	    		if(bbb==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
+	    		if(varCheckTwo==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
 	    		{
 	    			
-	    			button4.setVisible(false);
-	    			button5.setVisible(false);
-	    			button6.setVisible(false);
-	    			//button7.setVisible(false);
+	    			butId4.setVisible(false);
+	    			butId5.setVisible(false);
+	    			butId6.setVisible(false);
+	    			//butId7.setVisible(false);
 	    			
-	    			bbb=false;
-	    			button7.setText("GOTOWE");
-	    			jtf.setVisible(true);
+	    			varCheckTwo=false;
+	    			butId7.setText("GOTOWE");
+	    			jtfSearch.setVisible(true);
 	    			
-	    			//button4.setVisible(true);
+	    			//butId4.setVisible(true);
 	    			
 	    			
-	    			jtf.setVisible(true);
+	    			jtfSearch.setVisible(true);
 	    			
 	    			     
 	    		}
 	    		else
 	    		{
 	    		
-	    		bbb=true;
-	    		jtf.setVisible(false);
-	    		button7.setText("TRYB SZUKANIA");
+	    		varCheckTwo=true;
+	    		jtfSearch.setVisible(false);
+	    		butId7.setText("TRYB SZUKANIA");
 				
 	    		
-	    		if(jComboBox1.getSelectedItem().equals("sprzedane"))
+	    		if(jSelectConfig.getSelectedItem().equals("sprzedane"))
 	    		{
 	    			
 	    		}else
 	    		{
-	    		button5.setVisible(true);
-	    		button6.setVisible(true);
+	    		butId5.setVisible(true);
+	    		butId6.setVisible(true);
 	    		
 	    		}
 	    		
-	    		button4.setVisible(true);
-				jtf.setText("");
+	    		butId4.setVisible(true);
+				jtfSearch.setText("");
 				
 			}
 	    		
@@ -2010,11 +2000,11 @@ public class mojClass extends JFrame {
 	// NOWE METODY
 	//------------------------------------------------------------
 		
-		wybierzMetoda(); // WYBIERZ - przejscie
-		wyczyscMetoda(); // WYCZYSC - przejscie
+		wybierzMetoda(); // select - przejscie
+		wyczyscMetoda(); // remove - przejscie
 		dodajMetoda();  // DODAJ - przejscie
 		
-		przycisk8(); // Wyczysc - usuwa z JDBC 
+		przycisk8(); // remove - usuwa z JDBC 
 		przycisk9(); // COFNIJ - po wyczyszczeniu
 		
 		przycisk5(); // DODAJ
