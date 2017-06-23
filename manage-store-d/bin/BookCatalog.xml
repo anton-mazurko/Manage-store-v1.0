@@ -6,7 +6,7 @@
 
 <Charakterystyki>
     <User>root</User>
-    <Password>1029384756qaz</Password>
+    <Password>passwd</Password>
     <Url>jdbc:mysql://localhost:3306/zegarki_magchas?autoReconnect=true&amp;useSSL=false</Url>
 </Charakterystyki>
 
