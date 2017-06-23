@@ -130,7 +130,7 @@ public class mojClass extends JFrame {
 	ArrayList mojList2 = new ArrayList();
 	JScrollPane scroller = new JScrollPane();
 	
-	/// Zaladowanie
+	
 	boolean aaa = true;
     boolean bbb= true;
 
