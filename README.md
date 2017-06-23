@@ -1,2 +1,2 @@
 # Java
-In this repository will be applications writed in Java
+This repository contains applications writed in Java
