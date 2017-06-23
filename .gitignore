@@ -1,2 +1,11 @@
 
 BookCatalog.xml
+#XML fie
+BookCatalog.xml
+
+#Source png fie
+znaczek.png
+
+#Eclipse files
+.project
+.classpath
