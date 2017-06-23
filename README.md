@@ -1,2 +1,2 @@
-# Java
-This repository contains applications writed in Java
+# Manage-store-v1.0
+This repository contains application, created to manage differrent products in the database.

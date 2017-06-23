@@ -87,15 +87,6 @@ import org.xml.sax.SAXException;
 
 public class mojClass extends JFrame {
 	
-	//String url = "jdbc:mysql://localhost:3306/zegarki_magchas?autoReconnect=true&useSSL=false";
-	//String user ="root";
-	//String pass = "1029384756qaz";
-	//private static final String url = "jdbc:mysql://31.220.105.211:3306/needtest_1";
-	//private static final String user ="needtest_1";
-	//private static final String pass = "trenerovochka";
-	
-	//"jdbc:mysql://localhost:3306/zegarki_magchas?autoReconnect=true&useSSL=false","root","1029384756qaz"
-	
 	int wybranyIndex = 0;
 	
 	Connection con;
@@ -120,14 +111,14 @@ public class mojClass extends JFrame {
 	
 	///// WSZYSTKIE ELEMENTY /////
 	JFrame frame;
-	JComboBox jComboBox1 =new JComboBox();
+	JComboBox<String> jComboBox1 =new JComboBox<String>();
 	JButton wybierz = new JButton() ;
 	JButton wyczysc = new JButton() ;
 	JButton dodajNowa = new JButton();
 	JButton connect = new JButton();
 	//Object wybranaBaza;	
-	ArrayList<String> mojList = new ArrayList();
-	ArrayList mojList2 = new ArrayList();
+	ArrayList<String> mojList = new ArrayList<String>();
+	ArrayList<String> mojList2 = new ArrayList<String>();
 	JScrollPane scroller = new JScrollPane();
 	
 	
@@ -1574,7 +1565,6 @@ public class mojClass extends JFrame {
 					
 					requete.executeUpdate(myTableName);
 					
-					//System.out.print("Tabela zostala usunieta");
 					st.setText("STATUS : DEL COMPLETE");
 					
 				}
