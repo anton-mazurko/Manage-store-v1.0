@@ -128,20 +128,20 @@ public class mojClass extends JFrame {
     JTextField jtfUSER =new JTextField();
     JTextField jtfPASS =new JTextField();
 
-    JLabel st;
+    JLabel statusLabel;
     
     JLabel userLabel;
     JLabel passLabel;
     JLabel urlLabel;
-    JLabel ex;
-    JTextField ex2;
+    JLabel exLabel;
+    JTextField exampleLabel;
     JComboBox<String> jComboBox2 =new JComboBox<String>();
-    JButton coffanie =new JButton();
-    JButton dellete =new JButton();
+    JButton butBackward =new JButton();
+    JButton butDelete =new JButton();
     
-    Color myColor = Color.decode("#1e8bc3"); // FRAME
-    Color myColor3 = Color.decode("#d24d57"); // COMBOBOX
-    Color myColor2 = Color.decode("#e8e6ff"); // BUTTONS
+    Color colorOfFrame = Color.decode("#1e8bc3"); // FRAME
+    Color colorOfCombo = Color.decode("#d24d57"); // COMBOBOX
+    Color colorOfBut = Color.decode("#e8e6ff"); // BUTTONS
 
     
     
@@ -149,23 +149,10 @@ public class mojClass extends JFrame {
     //java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
     static String path2 = "src/BookCatalog.xml";
     
-    boolean niema = false;
-    
+    boolean statusOfTables = false;    
     boolean thr = false;
     
     
-    /*
-     * 1 - uwidocznienie mojClass
-     * 2 - zaladowanie na okienko przyciskow i inne
-     * 3 - zaladowanie do comboBox baz danych
-     * 4 - dodanie dzialan do przyciska 1,2
-     * 
-     * 
-     * Rozpoczecie programu
-     */
-    
-   // COFNIJ PO DODANIU DZIALA - tylko trzeba klikać na XML
-   //---------------------------------------------------------
     
 	static void init()  // Poczatkwa metoda
 	{
@@ -199,7 +186,7 @@ public class mojClass extends JFrame {
 	//button.setBorder(emptyBorder);
 		
 		//button.setContentAreaFilled(false);
-	button.setBackground(myColor2);
+	button.setBackground(colorOfBut);
 	button.setBorder(new LineBorder(Color.GRAY));
 	
    
@@ -214,7 +201,7 @@ public class mojClass extends JFrame {
 		frame.setBounds(5, 5, 400, 100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.getContentPane().setBackground(myColor);
+		frame.getContentPane().setBackground(colorOfFrame);
 		//URL iconURL = getClass().getResource("/some/package/favicon.png");
 		frame.setIconImage(ImageIO.read(new File("src/znaczek.png")));
 		
@@ -236,17 +223,17 @@ public class mojClass extends JFrame {
 		
 		jSelectConfig.setBounds(20,110,120,50);
 		frame.getContentPane().add(jSelectConfig);
-		//jSelectConfig.setBackground(myColor3);
+		//jSelectConfig.setBackground(colorOfCombo);
 		jSelectConfig.setVisible(false);
 		
 		jComboBox2.setBounds(50,140,120,50); // Contains profiles
 		frame.getContentPane().add(jComboBox2);
-		//jComboBox2.setBackground(myColor3);
+		//jComboBox2.setBackground(colorOfCombo);
 		
 		sprawdzenieProfile();
 		//jComboBox2.addItem("NOWA");
 				
-		select.setText("select");
+		select.setText("WYBIERZ");
 		select.setBounds(260,30,120,50);
 		frame.getContentPane().add(select);
 		//select.setVisible(false);
@@ -275,40 +262,40 @@ public class mojClass extends JFrame {
 	    frame.getContentPane().add(userLabel);
 	    userLabel.setVisible(false);
 	    userLabel.setText("USER");
-	    userLabel.setForeground(myColor2);
+	    userLabel.setForeground(colorOfBut);
 	    
 	    passLabel = new JLabel();
 	    passLabel.setBounds(10,70,50,20);
 	    frame.getContentPane().add(passLabel);
 	    passLabel.setVisible(false);
 	    passLabel.setText("PASS");
-	    passLabel.setForeground(myColor2);
+	    passLabel.setForeground(colorOfBut);
 	    
 	    urlLabel = new JLabel();
 	    urlLabel.setBounds(10,90,50,20);
 	    frame.getContentPane().add(urlLabel);
 	    urlLabel.setVisible(false);
 	    urlLabel.setText("URL");
-	    urlLabel.setForeground(myColor2);
+	    urlLabel.setForeground(colorOfBut);
 	    
-	    ex = new JLabel();
-	    ex.setBounds(10,110,30,20);
-	    frame.getContentPane().add(ex);
-	    ex.setVisible(false);
-	    ex.setText("EX :");
-	    ex.setForeground(myColor2);
+	    exLabel = new JLabel();
+	    exLabel.setBounds(10,110,30,20);
+	    frame.getContentPane().add(exLabel);
+	    exLabel.setVisible(false);
+	    exLabel.setText("EX :");
+	    exLabel.setForeground(colorOfBut);
 	    
-	    ex2 = new JTextField();
-	    ex2.setBounds(50,110,500,20);
-	    frame.getContentPane().add(ex2);
-	    ex2.setVisible(false);
-	    ex2.setEditable(false);
-	    ex2.setText("jdbc:mysql://localhost:3306/zegarki_magazyn?autoReconnect=true&amp;useSSL=false");
-	    ex2.setForeground(myColor2);
-	    ex2.setBorder(null);
-	    ex2.setBackground(myColor);
+	    exampleLabel = new JTextField();
+	    exampleLabel.setBounds(50,110,500,20);
+	    frame.getContentPane().add(exampleLabel);
+	    exampleLabel.setVisible(false);
+	    exampleLabel.setEditable(false);
+	    exampleLabel.setText("jdbc:mysql://localhost:3306/zegarki_magazyn?autoReconnect=true&amp;useSSL=false");
+	    exampleLabel.setForeground(colorOfBut);
+	    exampleLabel.setBorder(null);
+	    exampleLabel.setBackground(colorOfFrame);
 	    Font font1 = new Font("Calibri", Font.BOLD, 13);
-	    ex2.setFont(font1);
+	    exampleLabel.setFont(font1);
 	    
 	    jtfUSER = new JTextField();
 	    jtfUSER.setBounds(50,50,100,20);//Polozenie na formie
@@ -325,23 +312,23 @@ public class mojClass extends JFrame {
 	    frame.getContentPane().add(jtfURL);
 	    jtfURL.setVisible(false);
 		
-	    st = new JLabel();
-	    st.setBounds(420,300,200,20);
-	    frame.getContentPane().add(st);
-	    st.setText("STATUS : " + "DISCONNECTED");
-	    st.setForeground(myColor2);
+	    statusLabel = new JLabel();
+	    statusLabel.setBounds(420,300,200,20);
+	    frame.getContentPane().add(statusLabel);
+	    statusLabel.setText("STATUS : " + "DISCONNECTED");
+	    statusLabel.setForeground(colorOfBut);
 	    
-	    coffanie.setText("COFNIJ");
-		coffanie.setBounds(20,30,120,50);
-		frame.getContentPane().add(coffanie);
-		coffanie.setVisible(false);
-		buttt(coffanie);
+	    butBackward.setText("COFNIJ");
+		butBackward.setBounds(20,30,120,50);
+		frame.getContentPane().add(butBackward);
+		butBackward.setVisible(false);
+		buttt(butBackward);
 		
-		dellete.setText("DELETE");
-		dellete.setBounds(50,250,120,50);
-		frame.getContentPane().add(dellete);
-		dellete.setVisible(true);
-		buttt(dellete);
+		butDelete.setText("DELETE");
+		butDelete.setBounds(50,250,120,50);
+		frame.getContentPane().add(butDelete);
+		butDelete.setVisible(true);
+		buttt(butDelete);
 		
 		
 	    
@@ -362,7 +349,7 @@ public class mojClass extends JFrame {
 		    jtfUSER.setVisible(false);
 		    jtfPASS.setVisible(false);
 		    connect.setVisible(false);
-		    coffanie.setVisible(true);
+		    butBackward.setVisible(true);
 	    	//getItems();
 	    }
 	    else if(status.contains("false"))
@@ -381,7 +368,7 @@ public class mojClass extends JFrame {
 	
 	void connect() // Opis w srodku
 	{
-		niema=false;
+		statusOfTables=false;
 		
 		
 		selectConfig = jComboBox2.getSelectedItem().toString(); // STRING SAVE1
@@ -402,7 +389,7 @@ public class mojClass extends JFrame {
 		getItems(); // połączenie z url z SAVE0 lub pobranie z jTextField
 			
 		//if(jSelectConfig.getItemCount()!=0 )
-		if(!niema )
+		if(!statusOfTables )
 		{
 			if(jSelectConfig.getItemCount()>0){
 			select.setVisible(true);
@@ -418,11 +405,11 @@ public class mojClass extends JFrame {
 			userLabel.setVisible(false);
 			passLabel.setVisible(false);
 			urlLabel.setVisible(false);
-			ex.setVisible(false);
-			ex2.setVisible(false);
-			st.setText("STATUS : "+"CONNECTED");
+			exLabel.setVisible(false);
+			exampleLabel.setVisible(false);
+			statusLabel.setText("STATUS : "+"CONNECTED");
 			
-			dellete.setVisible(false);
+			butDelete.setVisible(false);
 		}
 		
 		//zmiana();
@@ -465,7 +452,7 @@ public class mojClass extends JFrame {
 		catch (Exception exc)
 		{
 			exc.printStackTrace();
-			niema=true;
+			statusOfTables=true;
 			
 		}
 		
@@ -479,10 +466,9 @@ public class mojClass extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{	
 				Thread t1 = new Thread("New Thread") {public void run(){
-					      
+					
+					    connect();
 					    
-							//setConnect2();
-							connect(); 
 				      }};
 				      
 				     				      
@@ -497,17 +483,15 @@ public class mojClass extends JFrame {
 				      }
 				 
 					
-					System.out.println(thr);
-					
-				    
+									    
 				
 				
-				if(!st.getText().toString().contains("DISCONNECTED"))
+				if(!statusLabel.getText().toString().contains("DISCONNECTED"))
 				{
 				jComboBox2.setVisible(false);
 				jSelectConfig.setVisible(true);
 				
-				coffanie.setVisible(true);
+				butBackward.setVisible(true);
 				}
 				
 			
@@ -648,11 +632,11 @@ public class mojClass extends JFrame {
            //System.out.println("Status : "+status);
                if(status.contains("false"))
                {
-            	   //st.setText("STATUS : false");
+            	   //statusLabel.setText("STATUS : false");
                }
                else if(status.contains("true"))
                {
-            	   //st.setText("STATUS : true");
+            	   //statusLabel.setText("STATUS : true");
                }
             
            // updateElementValue(document);
@@ -686,9 +670,9 @@ public class mojClass extends JFrame {
 		    	    userLabel.setVisible(true);
 		    	    passLabel.setVisible(true);
 		    	    urlLabel.setVisible(true);
-		    	    ex.setVisible(true);
-		    	    ex2.setVisible(true);
-		    	    dellete.setVisible(false);
+		    	    exLabel.setVisible(true);
+		    	    exampleLabel.setVisible(true);
+		    	    butDelete.setVisible(false);
 		        }else 
 		        {
 		        	jtfURL.setVisible(false);
@@ -698,12 +682,12 @@ public class mojClass extends JFrame {
 		    	    userLabel.setVisible(false);
 		    	    passLabel.setVisible(false);
 		    	    urlLabel.setVisible(false);
-		    	    ex.setVisible(false);
-		    	    ex2.setVisible(false);
+		    	    exLabel.setVisible(false);
+		    	    exampleLabel.setVisible(false);
 		    	    
 		    	    // POJAWIENIE PRZYCISKA DELETE
 		    	    if(jComboBox2.getItemCount()>2)
-		    	    dellete.setVisible(true);
+		    	    butDelete.setVisible(true);
 		    	    
 		        }
 		    }
@@ -712,7 +696,7 @@ public class mojClass extends JFrame {
 	
 	void coffanie() // Powrot do poczatku miesci sprawdzenieProfile
 	{
-		coffanie.addActionListener(new ActionListener(){			
+		butBackward.addActionListener(new ActionListener(){			
 			public void actionPerformed(ActionEvent e)
 			{	
 				
@@ -724,8 +708,8 @@ public class mojClass extends JFrame {
 				select.setVisible(false);
 		    	addNew.setVisible(false);
 		    	remove.setVisible(false);
-		    	coffanie.setVisible(false);
-		    	st.setText("STATUS : DISCONNECTED");
+		    	butBackward.setVisible(false);
+		    	statusLabel.setText("STATUS : DISCONNECTED");
 		    	jSelectConfig.removeAllItems();
 				
 				
@@ -1243,7 +1227,7 @@ public class mojClass extends JFrame {
 			{
 				
 				//zaladowanie();
-				coffanie.setVisible(false);
+				butBackward.setVisible(false);
 				
 				selectedTable.add(jSelectConfig.getSelectedItem().toString());
 			
@@ -1310,7 +1294,7 @@ public class mojClass extends JFrame {
 				addNew.setVisible(false);
 				remove.setVisible(false);
 				
-				coffanie.setVisible(false);
+				butBackward.setVisible(false);
 				butId8.setVisible(true);
 				butId9.setVisible(true);
 				
@@ -1338,10 +1322,10 @@ public class mojClass extends JFrame {
 			jtfURL.setVisible(false);
 			jtfUSER.setVisible(false);
 			jtfPASS.setVisible(false);
-			ex.setVisible(false);
-			st.setText("STATUS : "+"CONNECTED");
+			exLabel.setVisible(false);
+			statusLabel.setText("STATUS : "+"CONNECTED");
 			
-			dellete.setVisible(false);
+			butDelete.setVisible(false);
 			
 		}
 		
@@ -1555,7 +1539,7 @@ public class mojClass extends JFrame {
 					
 					statement.executeUpdate(myTableName);
 					
-					st.setText("STATUS : DEL COMPLETE");
+					statusLabel.setText("STATUS : DEL COMPLETE");
 					
 				}
 				catch (Exception exc)
@@ -1573,8 +1557,8 @@ public class mojClass extends JFrame {
 			
 			public void actionPerformed(ActionEvent e)
 			{
-				st.setText("STATUS : CONNECTED");
-				coffanie.setVisible(true);
+				statusLabel.setText("STATUS : CONNECTED");
+				butBackward.setVisible(true);
 				butId8.setVisible(false);
 				butId9.setVisible(false);
 				
@@ -1776,7 +1760,7 @@ public class mojClass extends JFrame {
 		select.setVisible(true);
 		addNew.setVisible(true);
 		remove.setVisible(true);
-		coffanie.setVisible(true);
+		butBackward.setVisible(true);
 		
 		
 		selectedTable.remove(0); // WYCZYSZCZENIE z listy, nazwy tabeli z JDBC - new1
@@ -1970,7 +1954,7 @@ public class mojClass extends JFrame {
 
 	void przyciskMainDel()
 	{
-			dellete.addActionListener(new ActionListener(){
+			butDelete.addActionListener(new ActionListener(){
 			
 	    	@Override
 			public void actionPerformed(ActionEvent e)
