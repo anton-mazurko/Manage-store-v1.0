@@ -1,0 +1,9 @@
+#XML fie
+src/BookCatalog.xml
+
+#Source png fie
+src/znaczek.png
+
+#Eclipse files
+.project
+.classpath
