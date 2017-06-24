@@ -1,7 +1,6 @@
 package testCalosc_v01;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -20,12 +19,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
-import java.io.InputStream;
-
 import javax.imageio.ImageIO;
-import javax.print.DocFlavor.URL;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -34,13 +28,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.xml.parsers.DocumentBuilder;
@@ -50,39 +40,13 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 
 @SuppressWarnings("serial")
@@ -147,7 +111,7 @@ public class mojClass extends JFrame {
     
   //String path = "./BookCatalog.xml";
     //java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-    static String path2 = "src/BookCatalog.xml";
+    final static String PATH = "src/BookCatalog.xml";
     
     boolean statusOfTables = false;    
     boolean thr = false;
@@ -173,7 +137,7 @@ public class mojClass extends JFrame {
 });
 	}
 
-	public static void main(String[] args) // Poczatkowa metoda
+	public static void main(String[] args)
 	{
 		init();
 	}
@@ -283,12 +247,12 @@ public class mojClass extends JFrame {
 	    exampleLabel.setFont(font1);
 	    
 	    jtfUSER = new JTextField();
-	    jtfUSER.setBounds(50,50,100,20);//Polozenie na formie
+	    jtfUSER.setBounds(50,50,100,20);
 	    frame.getContentPane().add(jtfUSER);
 	    jtfUSER.setVisible(false);
 	    
 	    jtfPASS = new JTextField();
-	    jtfPASS.setBounds(50,70,100,20);//Polozenie na formie
+	    jtfPASS.setBounds(50,70,100,20);
 	    frame.getContentPane().add(jtfPASS);
 	    jtfPASS.setVisible(false);
 	    
@@ -354,25 +318,23 @@ public class mojClass extends JFrame {
 	{
 		statusOfTables=false;
 		
-		
 		selectConfig = jSelectConfig.getSelectedItem().toString();
 		selectIndex=jSelectConfig.getSelectedIndex();
 		
 		if(jSelectConfig.getSelectedItem().toString().contains("NOWA"))
 		{
-				addNewConfig(); // Dodanie danych z NOWA do XML
+				addNewConfig();
 		
 		}
-		////
+		
 		if(!jSelectConfig.getSelectedItem().toString().contains("NOWA"))
 		{
 			setConnect2();
-			selectSave(); // pobranie SAVE0 z pliku XML
+			selectSave();
 		}
 		
-		getItems(); // połączenie z url z SAVE0 lub pobranie z jTextField
+		getItems();
 			
-		//if(jSelectTable.getItemCount()!=0 )
 		if(!statusOfTables )
 		{
 			if(jSelectTable.getItemCount()>0){
@@ -398,7 +360,8 @@ public class mojClass extends JFrame {
 		
 	}
 	
-	void getItems() // Ladowanie do jSelectTable z bazy danych
+	/*Load to jSelectConfig items*/
+	void getItems()
 	{
 		if(jSelectConfig.getItemCount()!=0)
 		{if(jSelectConfig.getSelectedItem().toString().contains("NOWA"))
@@ -415,8 +378,6 @@ public class mojClass extends JFrame {
 			connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
 			
 			statement = connection.createStatement();
-			
-			//ResultSet myRs = myStmt.executeQuery("select * from mojebaby");
 			
 			DatabaseMetaData md = connection.getMetaData();
 			
@@ -511,11 +472,11 @@ public class mojClass extends JFrame {
 	/*Get USER,PASS,URL from jSelectConfig*/
 	void selectSave()
     {
-    	int wybor = jSelectConfig.getSelectedIndex();
+    	int select = jSelectConfig.getSelectedIndex();
     		
-    		System.out.println(wybor);
+    		System.out.println(select);
     		
-    		getUserPassUrl(wybor); // sciaganie danych z wybranego trybu
+    		getUserPassUrl(select);
     		
     		System.out.println(USERNAME);
     		System.out.println(PASSWORD);
@@ -523,7 +484,7 @@ public class mojClass extends JFrame {
     	
     }
 	
-	void getUserPassUrl(int numberOut) // Jest w selectSave
+	void getUserPassUrl(int numberOut)
     {
     		int number = numberOut;
         	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
@@ -660,7 +621,7 @@ public class mojClass extends JFrame {
 	            
 	            Transformer tr = TransformerFactory.newInstance().newTransformer();
 	            DOMSource source = new DOMSource(document);
-	            StreamResult result = new StreamResult(path2);
+	            StreamResult result = new StreamResult(PATH);
 	            tr.transform(source, result);
 	            
 	        } catch (TransformerException e) 
@@ -716,7 +677,7 @@ public class mojClass extends JFrame {
 
             Transformer tr = TransformerFactory.newInstance().newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(path2);
+            StreamResult result = new StreamResult(PATH);
             tr.transform(source, result);
             
             
@@ -813,7 +774,7 @@ public class mojClass extends JFrame {
             {
             	Transformer tr = TransformerFactory.newInstance().newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = new StreamResult(path2);
+                StreamResult result = new StreamResult(PATH);
                 tr.transform(source, result);
                 
             }catch(Exception e)
@@ -940,7 +901,7 @@ public class mojClass extends JFrame {
       ResultSetMetaData md = resultset.getMetaData();
       int columnCount = md.getColumnCount();
           
-      Vector columns = new Vector(columnCount);
+      Vector<String> columns = new Vector<String>(columnCount);
       
       /*store column names*/
       for(int i=1; i<=columnCount; i++)
@@ -949,23 +910,22 @@ public class mojClass extends JFrame {
           columnNames.add(md.getColumnName(i));
           }
      
-      Vector data = new Vector();
-      Vector row;
+      Vector<Vector<String>> data = new Vector<Vector<String>>();
+      Vector<String> row;
 
       /*store row data*/
       while(resultset.next())
       {
-          row = new Vector(columnCount);
+          row = new Vector<String>(columnCount);
           
                         
-          	for(int t=1; t<=columnCount; t++) // nie to
+          	for(int t=1; t<=columnCount; t++)
           	{
               row.add(resultset.getString(t));
               
             }
           	
               data.add(row);
-         
       }
           
     
@@ -1024,9 +984,7 @@ public class mojClass extends JFrame {
            public void changedUpdate(DocumentEvent e) {
         	 /*To change body of generated methods, choose Tools | Templates.*/
         	   throw new UnsupportedOperationException("Not supported yet."); 
-           }
-
-       });
+           }});
       
        
      /*Disable click*/
@@ -1043,9 +1001,7 @@ public class mojClass extends JFrame {
 		{
 			
 		}
-		
-		
-		}
+	}
 	
 	
 	
@@ -1252,7 +1208,7 @@ public class mojClass extends JFrame {
 	           
 	        Transformer tr2 = TransformerFactory.newInstance().newTransformer();
 	        DOMSource source2 = new DOMSource(document2);
-	        StreamResult result2 = new StreamResult(path2);
+	        StreamResult result2 = new StreamResult(PATH);
 	        tr2.transform(source2, result2);	        	
 	   }
     	catch(Exception e)
@@ -1288,11 +1244,10 @@ public class mojClass extends JFrame {
 	private  void deleteConfig(Document doc,int index)
     {
 		NodeList nodeList = doc.getElementsByTagName("Charakterystyki");
-        Node node = nodeList.item(index); // Pierwszy półka
+        Node node = nodeList.item(index);
             
-           
-    	   node.getParentNode().removeChild(node);
-           writeDocument(doc);
+        node.getParentNode().removeChild(node);
+        writeDocument(doc);
               
     } 
 	
@@ -1357,16 +1312,12 @@ public class mojClass extends JFrame {
 				
 				jSelectTable.setVisible(true);
 				addNew.setVisible(true);
-				
-				
 			}
 });
 	}
     
 	void butAddMode()
 	{
-		
-		
 		butId5.addActionListener(new ActionListener(){
 			
 	    	@Override
@@ -1410,7 +1361,6 @@ public class mojClass extends JFrame {
 	   			 jtf_ID6.setVisible(false);
 	   			
 	   			 scroller.setBounds(000, 70, 400, 300);
-	    			
 	    			
 	    		}
 			}
@@ -1657,9 +1607,8 @@ public class mojClass extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 	    		if(jSelectConfig.getItemCount()>2)
-	    		{int index = jSelectConfig.getSelectedIndex(); // SAVE0 --> 0
-	    		deleteConfigMain(index); // USUWA SAVE0 z XML
-	    		//sprawdzenieProfile(); // RESET ComboBox
+	    		{int index = jSelectConfig.getSelectedIndex();
+	    		deleteConfigMain(index);
 	    		jSelectConfig.removeItemAt(index);
 	    		}
 	    		
@@ -1672,28 +1621,34 @@ public class mojClass extends JFrame {
 	{
 		/*Chek which window will be open*/
 		init2();
+		
 		connectMethod();
+		
 		backDisconn();
+		
 		jSelectListener();
+				
+		selectMethod();
 		
-	
+		removeMethod();
 		
-		selectMethod(); // select - przejscie
-		removeMethod(); // remove - przejscie
-		addMethod();  // DODAJ - przejscie
+		addMethod();
 		
-		butRemove(); // remove - usuwa z JDBC 
-		butRemoveBack(); // COFNIJ - po wyczyszczeniu
+		butRemove(); 
 		
-		butAddMode(); // DODAJ
-		butAdd(); // Przycisk - ADD
+		butRemoveBack();
 		
-		butBackMenu(); // COFNIJ - powrow do menu
+		butAddMode();
+		
+		butAdd();
+		
+		butBackMenu();
 		 
-		butDelMode(); // TRYB DELETE
-		butDel(); // DEL
+		butDelMode();
 		
-		butSearchMode(); // TRYB SZUKAJ
+		butDel();
+		
+		butSearchMode();
 		
 		przyciskMainDel();
 		
