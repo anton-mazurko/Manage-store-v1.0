@@ -440,7 +440,8 @@ public class mojClass extends JFrame {
 	
 	
 		
-	void connectMetoda() // Miesci connect
+	/*Contains connect*/
+	void connectMethod()
 	{
 		connect.addActionListener(new ActionListener(){			
 			public void actionPerformed(ActionEvent e)
@@ -450,7 +451,6 @@ public class mojClass extends JFrame {
 					    connect();
 					    
 				      }};
-				      
 				     				      
 				      t1.start();
 				      try
@@ -458,13 +458,7 @@ public class mojClass extends JFrame {
 				    	 t1.join();
 				      }catch(Exception ee)
 				      {
-				    	  
-				      
 				      }
-				 
-					
-									    
-				
 				
 				if(!statusLabel.getText().toString().contains("DISCONNECTED"))
 				{
@@ -474,12 +468,10 @@ public class mojClass extends JFrame {
 				butBackward.setVisible(true);
 				}
 				
-			
-				
 			}});
 	}
-	
-	void checkProfile() // Laduje ilosc SAVE ow
+	/*Load size of SAVE's*/
+	void checkProfile()
     {
 		
 		jSelectConfig.removeAllItems();
@@ -487,25 +479,21 @@ public class mojClass extends JFrame {
     	//ClassLoader cl = getClass().getClassLoader();
     	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-    	//System.out.println(in);
+    	
     	try {
-            // Создается построитель документа
+            
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.parse(path);
-            NodeList nodeList = document.getElementsByTagName("Charakterystyki"); // Gdzie to będzie szukane
+            NodeList nodeList = document.getElementsByTagName("Charakterystyki");
            for(int i=0;i<nodeList.getLength();i++)
             {
-        	   Node node = nodeList.item(i); // Pierwszy półka
+        	   Node node = nodeList.item(i);
                
                 
-                if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
+                if (Node.ELEMENT_NODE == node.getNodeType())
                 {
-                    //Element element = (Element) node; // Element półki
-                    //String urrl= element.getElementsByTagName("Url").item(0).getTextContent(); 
-                    //dataProfile.add(urrl);
                     int l =i+1;
                 	jSelectConfig.addItem("SAVE"+l);
-                    
                 }
          
             }
@@ -517,23 +505,17 @@ public class mojClass extends JFrame {
             ex.printStackTrace(System.out);
         }
     	
-    	/*for(int i=0;i<jSelectConfig.getItemCount();i++)
-    	if(!jSelectConfig.getItemAt(i).toString().equals("NOWA"))
-    	{
-    		jSelectConfig.addItem("NOWA");
-    	}
-    	
-    	*/
     	jSelectConfig.addItem("NOWA");
     }
 
-	void selectSave() // Sciaganie URL,USER,PASS z jSelectConfig
+	/*Get USER,PASS,URL from jSelectConfig*/
+	void selectSave()
     {
-    	int wybor = jSelectConfig.getSelectedIndex(); // 0,1,2 ...
+    	int wybor = jSelectConfig.getSelectedIndex();
     		
     		System.out.println(wybor);
     		
-    		pobierzUserPassUrl(wybor); // sciaganie danych z wybranego trybu
+    		getUserPassUrl(wybor); // sciaganie danych z wybranego trybu
     		
     		System.out.println(USERNAME);
     		System.out.println(PASSWORD);
@@ -541,22 +523,22 @@ public class mojClass extends JFrame {
     	
     }
 	
-	void pobierzUserPassUrl(int numer2) // Jest w selectSave
+	void getUserPassUrl(int numberOut) // Jest w selectSave
     {
-    		int numer = numer2;
+    		int number = numberOut;
         	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
     		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
         	try {
               
                 DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
                 Document document = documentBuilder.parse(path);
-                NodeList nodeList = document.getElementsByTagName("Charakterystyki"); // Gdzie to będzie szukane
+                NodeList nodeList = document.getElementsByTagName("Charakterystyki");
               
-            	Node node = nodeList.item(numer); // Pierwszy półka
+            	Node node = nodeList.item(number);
                     
-                    if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
+                    if (Node.ELEMENT_NODE == node.getNodeType())
                     {
-                        Element element = (Element) node; // Element półki
+                        Element element = (Element) node;
                          USERNAME= element.getElementsByTagName("User").item(0).getTextContent(); 
                          PASSWORD= element.getElementsByTagName("Password").item(0).getTextContent(); 
                          URL = element.getElementsByTagName("Url").item(0).getTextContent(); 
@@ -592,9 +574,9 @@ public class mojClass extends JFrame {
             Node node = nodeList.item(0);
                
                 
-                if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
+                if (Node.ELEMENT_NODE == node.getNodeType())
                 {
-                    Element element = (Element) node; // Element półki
+                    Element element = (Element) node;
                     status= element.getElementsByTagName("Connect").item(0).getTextContent();
               }
            
@@ -608,11 +590,11 @@ public class mojClass extends JFrame {
     	
     }
 	
-	void jSelectListener() //jComboBoxLIstener
+	void jSelectListener()
 	{
 		jSelectConfig.addItemListener(new ItemListener() {
 	        public void itemStateChanged(ItemEvent arg0) {
-	            //Do Something
+	            
 	     
 		        if(jSelectConfig.getSelectedItem()=="NOWA")
 		        {
@@ -637,7 +619,7 @@ public class mojClass extends JFrame {
 		    	    exLabel.setVisible(false);
 		    	    exampleLabel.setVisible(false);
 		    	    
-		    	    // POJAWIENIE PRZYCISKA DELETE
+		    	    /*Set visible Delete button*/
 		    	    if(jSelectConfig.getItemCount()>2)
 		    	    butDelete.setVisible(true);
 		    	    
@@ -646,7 +628,7 @@ public class mojClass extends JFrame {
 		});
 	}
 	
-	void backDisconn() // Powrot do poczatku miesci sprawdzenieProfile
+	void backDisconn()
 	{
 		butBackward.addActionListener(new ActionListener(){			
 			public void actionPerformed(ActionEvent e)
@@ -668,59 +650,19 @@ public class mojClass extends JFrame {
 			}});
 	}
 	
-	/*private static void addNewBook // Dodanie NOWA do XML
-	 	(Document document,String url,String user,String pass) 
-		throws TransformerFactoryConfigurationError, DOMException 
-	 {
-		 	
-		 
-	        // Получаем корневой элемент
-	        Node root = document.getDocumentElement();
+	
 
-	        // Создаем новую книгу по элементам
-	        // Сама книга <Book>
-	        Element book = document.createElement("Charakterystyki");
-	       
-	        
-	        Element USER = document.createElement("User");
-	        USER.setTextContent(user);
-	        
-	        Element PASS = document.createElement("Password");
-	        PASS.setTextContent(pass);
-	        
-	        Element URL = document.createElement("Url");
-	        URL.setTextContent(url);
-	        // <Author>
-	      
-	        
-	        // Добавляем внутренние элементы книги в элемент <Book>
-	        book.appendChild(USER);
-	        book.appendChild(PASS);
-	        book.appendChild(URL);
-	       
-	        // Добавляем книгу в корневой элемент
-	        root.appendChild(book);
-	       
-	        // Записываем XML в файл
-	        writeDocument(document);
-	       
-	    }*/
-
-	private static void writeDocument // Zapisanie do XML
+	private static void writeDocument 
 	 	(Document document) 
 		throws TransformerFactoryConfigurationError 
 	    {
 	        try {
 	            
-	        	//TransformerFactory transformerFactory = TransformerFactory.newInstance();
-	            //Transformer transformer = transformerFactory.newTransformer();
 	            Transformer tr = TransformerFactory.newInstance().newTransformer();
 	            DOMSource source = new DOMSource(document);
 	            StreamResult result = new StreamResult(path2);
 	            tr.transform(source, result);
 	            
-	            
-	                        
 	        } catch (TransformerException e) 
 	        {
 	            e.printStackTrace(System.out);
@@ -729,7 +671,7 @@ public class mojClass extends JFrame {
 	    }
 	
 	
-	void addNewConfig() // Czytanie z jtfSearch i przekazanie do addNewBook
+	void addNewConfig()
 	 {
 		 	
 		    String a = jtfURL.getText();
@@ -787,11 +729,8 @@ public class mojClass extends JFrame {
 	 }
 	 
 	
-	//------------------------------------------------------------
-	// NOWE METODY
-	//------------------------------------------------------------
-
-	void checkpoint() // Zmiana SAVE0 na SAVE2
+/*Change SAVE0 to SAVE2*/
+	void checkpoint()
 	{    java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 		//String path = "./BookCatalog.xml";
    		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
@@ -1110,18 +1049,13 @@ public class mojClass extends JFrame {
 	
 	
 	
-	void selectMethod() // Zaladowanie buttonow i tabeli
+	void selectMethod()
 	{
-	
-		
 		select.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e)
 			{
-				
-				//zaladowanie();
 				butBackward.setVisible(false);
-				
 				selectedTable.add(jSelectTable.getSelectedItem().toString());
 			
 				jSelectTable.setVisible(false);
@@ -1129,11 +1063,8 @@ public class mojClass extends JFrame {
 				addNew.setVisible(false);
 				remove.setVisible(false);
 				
-				//System.out.println(jSelectTable.getSelectedItem());
 				if(jSelectTable.getSelectedItem().equals("Sprzedane"))
 				{
-					
-				//butId6.setVisible(true);
 				
 				}else
 				{
@@ -1143,14 +1074,13 @@ public class mojClass extends JFrame {
 				butId7.setVisible(true);
 				butId4.setVisible(true);
 				
-			
-				loadingTable(); // dodanie tabeli do okienka i td
+				loadingTable();
 				
 			
 			}});}
 	
 		
-	void addMethod() // Przejscie do okienka miesci zmiana2
+	void addMethod()
 	{
 			addNew.addActionListener(new ActionListener(){
 			
@@ -1158,13 +1088,12 @@ public class mojClass extends JFrame {
 			{
 					if(selectIndex!=0)
 					{
-						checkpoint(); // selectConfig juz jest tam umieszczona selectConfig to zczytane z ComboBox
+						checkpoint();
 					}
 				frame.setVisible(false);
 				try {
 					mojDodaj mojDodajOkienko = new mojDodaj();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
@@ -1181,8 +1110,6 @@ public class mojClass extends JFrame {
 			
 			public void actionPerformed(ActionEvent e)
 			{
-				
-				//jSelectTable.setVisible(false);
 				select.setVisible(false);
 				addNew.setVisible(false);
 				remove.setVisible(false);
@@ -1196,14 +1123,13 @@ public class mojClass extends JFrame {
 		});
 	}
 
-	//------------------------------------------------------------
-	// NOWE METODY
-	//------------------------------------------------------------
-	void connect2() // Laduje numer z XML SAVE0 --> 0 i pobiera z bazy do jSelectTable
+	/*Load number of XML SAVE0 --> 0 ang get from database to jSelectTable*/
+	void connect2() 
 	{
-		czytajNumer2();
+		readNumberMain();
 		
-		getItems(); // połączenie z url z SAVE0 lub pobranie z jTextField
+		/*Connect to URL from SAVE0*/
+		getItems();
 			
 		if(jSelectTable.getItemCount()!=0)
 		{
@@ -1220,21 +1146,20 @@ public class mojClass extends JFrame {
 			
 			butDelete.setVisible(false);
 			
-		}
-		
-				
+		}		
 	}
 	
-	
-	void czytajNumer2() // Metoda bez input
+	/*Method without input*/
+	void readNumberMain()
 	{
-		pobierzCharakt(czytajNumer());
+		getSettings(readNumber());
 	}
 
-	void pobierzCharakt(int numer2) // get URL,USER,PASS from 0
+	/*GET URL,USER,PASS from 0*/
+	void getSettings(int numberOut)
 	{
 		
-	    		int numer = numer2;
+	    		int number = numberOut;
 	        	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 	    		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 	        	try {
@@ -1243,7 +1168,7 @@ public class mojClass extends JFrame {
 	                Document document = documentBuilder.parse(path);
 	                NodeList nodeList = document.getElementsByTagName("Charakterystyki");
 	              
-	            	Node node = nodeList.item(numer);
+	            	Node node = nodeList.item(number);
 	                    
 	                    if (Node.ELEMENT_NODE == node.getNodeType())
 	                    {
@@ -1260,29 +1185,25 @@ public class mojClass extends JFrame {
 	            } catch (IOException ex) {
 	                ex.printStackTrace(System.out);
 	            }
-	        	
-	   
 	}
 
-	int czytajNumer()// Laduje numer z XML SAVE0 --> 0
+	int readNumber()
 	{
 		 	//ClassLoader cl = getClass().getClassLoader();
 	    	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+			java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 	    	//String path = "./BookCatalog.xml";
 	    	try {
-	            // Создается построитель документа
+	            
 	           DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-	            // Создается дерево DOM документа из файла
 	           Document document = documentBuilder.parse(path);
 	            
-	            NodeList nodeList = document.getElementsByTagName("Sprawdzenie"); // Gdzie to będzie szukane
-	            Node node = nodeList.item(0); // Pierwszy półka
+	            NodeList nodeList = document.getElementsByTagName("Sprawdzenie");
+	            Node node = nodeList.item(0);
 	               
-	              
-	                if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
+	              if (Node.ELEMENT_NODE == node.getNodeType())
 	                {
-	                    Element element = (Element) node; // Element półki
+	                    Element element = (Element) node;
 	                    numberOfConfig= element.getElementsByTagName("Numer").item(0).getTextContent();
 	                }
 	               
@@ -1298,13 +1219,13 @@ public class mojClass extends JFrame {
 	    	
 	    	String del = numberOfConfig;
 	    	del=del.substring(4, 5);
-	    	//System.out.println(del);
+	    	
 	    	int del2=Integer.valueOf(del);
 	    	
 	    	
-	    	int delll=del2-1;	
-	    	System.out.println("SAVE1 + "+delll);
-	    	return delll;
+	    	int del3=del2-1;	
+	    	System.out.println("SAVE1 + "+del3);
+	    	return del3;
 	    	
 	}
 	
@@ -1344,11 +1265,8 @@ public class mojClass extends JFrame {
 	}
 		          
 	
-	//------------------------------------------------------------
-	// NOWE METODY
-	//------------------------------------------------------------
-	
-	void zmianaSAVE(int x) // USUNIECIE SAVE0 z XML
+	/*Delete SAVE0 from XML*/
+	 void deleteConfigMain(int x)
 	{java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 		//String path = "./BookCatalog.xml";
    		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
@@ -1356,7 +1274,7 @@ public class mojClass extends JFrame {
             
    			DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.parse(path);
-            zmianaSAVE2(document,x);
+            deleteConfig(document,x);
             
         } catch (ParserConfigurationException ex) {
             ex.printStackTrace(System.out);
@@ -1365,15 +1283,12 @@ public class mojClass extends JFrame {
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
-   		
-    	
 	}
 	
-	private  void zmianaSAVE2(Document doc,int i) // USUNIECIE SAVE0 z XML
+	private  void deleteConfig(Document doc,int index)
     {
-		NodeList nodeList = doc.getElementsByTagName("Charakterystyki"); // Gdzie to będzie szukane
-        
-    	Node node = nodeList.item(i); // Pierwszy półka
+		NodeList nodeList = doc.getElementsByTagName("Charakterystyki");
+        Node node = nodeList.item(index); // Pierwszy półka
             
            
     	   node.getParentNode().removeChild(node);
@@ -1381,13 +1296,8 @@ public class mojClass extends JFrame {
               
     } 
 	
-	//------------------------------------------------------------
-	// NOWE METODY
-	//------------------------------------------------------------
 	
-	// Realizowac WYSZYSC 
-	
-	void butRemove() // remove
+	void butRemove()
 	{
 		butId8.addActionListener(new ActionListener(){
 			
@@ -1421,7 +1331,7 @@ public class mojClass extends JFrame {
 			}
 		});
 	}
-	void butRemoveBack() // COFNIJ - po wyczyszczeniu
+	void butRemoveBack()
 	{
 		butId9.addActionListener(new ActionListener(){
 			
@@ -1453,9 +1363,9 @@ public class mojClass extends JFrame {
 });
 	}
     
-	void butAddMode() // TRYB DODANIA
+	void butAddMode()
 	{
-		// TRYB DODANIA
+		
 		
 		butId5.addActionListener(new ActionListener(){
 			
@@ -1463,7 +1373,7 @@ public class mojClass extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				
-	    		if(varCheckTwo==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
+	    		if(varCheckTwo==true)
 	    		{
 	    			varCheckTwo=false;
 	    			
@@ -1501,9 +1411,6 @@ public class mojClass extends JFrame {
 	   			
 	   			 scroller.setBounds(000, 70, 400, 300);
 	    			
-	   			
-	    			
-	    			
 	    			
 	    		}
 			}
@@ -1511,9 +1418,9 @@ public class mojClass extends JFrame {
 		
 	);
 	}
-	void butAdd() // PRZYCISK - ADD
+	void butAdd()
 	{
-		// DODAJ
+		
 		butId1.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -1532,12 +1439,9 @@ public class mojClass extends JFrame {
             	 butId5.setText("TRYB DODANIA");
             	
             	
-            	
-            	
             	String getTable=selectedTable.get(0).toString();
-        		String razem ="select * from "+getTable;
-            	String razem2 = "insert into "+getTable;
-            	
+        		String querySelect ="select * from "+getTable;
+            	            	
             	String sql ="insert into "+selectedTable.get(0).toString()
 				
 						+"("+columnNames.get(0).toString()+','+columnNames.get(1).toString()+','+columnNames.get(2).toString()+','+columnNames.get(3).toString()+','+columnNames.get(4).toString()+','+columnNames.get(5).toString()+")"
@@ -1561,7 +1465,7 @@ public class mojClass extends JFrame {
             
                connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
                statement = connection.createStatement();
-               statement.executeQuery(razem);// zmienic to co w nawiasach
+               statement.executeQuery(querySelect);
                statement.executeUpdate(sql);
             		
             		
@@ -1591,11 +1495,8 @@ public class mojClass extends JFrame {
         });
 
 	}
-	void butBackMenu() // COFNIJ - do menu
+	void butBackMenu()
 	{
-		
-		// COFNIJ
-		
 		butId4.addActionListener(new ActionListener(){
 			
 	    	@Override
@@ -1603,42 +1504,38 @@ public class mojClass extends JFrame {
 			{
 	    		
 	    
-		// Unvisible
+		/*Unvisible*/
 		butId4.setVisible(false);
 		butId5.setVisible(false);
 		butId6.setVisible(false);
 		butId7.setVisible(false);
 		scroller.setVisible(false);
 		
-		// Visible
+		/*Visible*/
 		jSelectTable.setVisible(true);
 		select.setVisible(true);
 		addNew.setVisible(true);
 		remove.setVisible(true);
 		butBackward.setVisible(true);
 		
-		
-		selectedTable.remove(0); // WYCZYSZCZENIE z listy, nazwy tabeli z JDBC - new1
+		selectedTable.remove(0);
 				
 	}});
 		
 			
 	}
 	
-	void butDelMode() // TRYB DELETE
+	void butDelMode()
 	{
-		//TRYB DELETE
-		
 		butId6.addActionListener(new ActionListener(){
 			
 	    	@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				
-	    		if(varCheckTwo==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
+	    		if(varCheckTwo==true)
 	    		{
 	    			varCheckTwo=false;
-	    			//butId6.setText("GOTOWE");
 	    			butId4.setVisible(false);
 	    			
 	    			butId5.setVisible(false);
@@ -1646,10 +1543,7 @@ public class mojClass extends JFrame {
 	    			butId7.setVisible(false);
 	    			
 	    			jtfDelete.setVisible(true);
-	    			
 	    			butId2.setVisible(true);
-	    			
-	    			
 	    			jtfDelete.setVisible(true);
 	    			 
 	    			
@@ -1660,23 +1554,17 @@ public class mojClass extends JFrame {
 	    		varCheckTwo=true;
 	    		jtfDelete.setVisible(false);
 	    		
-				butId6.setText("TRYB USUWANIA");
-				
+				butId6.setText("TRYB USUWANIA");				
 				butId2.setVisible(false);
 				
-				
-			}
-	    		
-	    		
+			}	
 			}
 			
 		 });
 	}
 
-	void butDel() // DEL
+	void butDel()
 	{
-		//DELETE
-		
 		butId2.addActionListener(new ActionListener() {
 
 	        @Override
@@ -1695,11 +1583,9 @@ public class mojClass extends JFrame {
             		butId7.setVisible(true);
 	        	try
 	    		{
-	        		
-      		
 	        		connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);           		
                     statement = connection.createStatement();	    			
-	    			String sql = "delete from "+getTable+" where id=' "+jtfDelete.getText()+" '"; // zmienic 
+	    			String sql = "delete from "+getTable+" where id=' "+jtfDelete.getText()+" '";
 	    			statement.executeUpdate(sql);
 	    			frame.remove(scroller);
 	            	frame.repaint();
@@ -1716,14 +1602,12 @@ public class mojClass extends JFrame {
 	        	jtfDelete.setVisible(false);
 	        	butId6.setText("TRYB USUWANIA");
 	        	jtfDelete.setText("");
-	        	
 	        }
 	    });
 	}
 
-	void butSearchMode() // TRYB SZUKAJ
+	void butSearchMode()
 	{
-		//TRYB SZUKAJ
 		
 			butId7.addActionListener(new ActionListener(){
 			
@@ -1731,14 +1615,12 @@ public class mojClass extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				
-	    		if(varCheckTwo==true) // powinny sie pojawic przyciski i zmienic polozenie tabela
+	    		if(varCheckTwo==true)
 	    		{
-	    			
 	    			butId4.setVisible(false);
 	    			butId5.setVisible(false);
 	    			butId6.setVisible(false);
-	    			//butId7.setVisible(false);
-	    			
+	    		
 	    			varCheckTwo=false;
 	    			butId7.setText("GOTOWE");
 	    			jtfSearch.setVisible(true);
@@ -1758,7 +1640,6 @@ public class mojClass extends JFrame {
 	    		{
 	    		butId5.setVisible(true);
 	    		butId6.setVisible(true);
-	    		
 	    		}	    		
 	    		butId4.setVisible(true);
 				jtfSearch.setText("");				
@@ -1777,7 +1658,7 @@ public class mojClass extends JFrame {
 			{
 	    		if(jSelectConfig.getItemCount()>2)
 	    		{int index = jSelectConfig.getSelectedIndex(); // SAVE0 --> 0
-	    		zmianaSAVE(index); // USUWA SAVE0 z XML
+	    		deleteConfigMain(index); // USUWA SAVE0 z XML
 	    		//sprawdzenieProfile(); // RESET ComboBox
 	    		jSelectConfig.removeItemAt(index);
 	    		}
@@ -1786,15 +1667,14 @@ public class mojClass extends JFrame {
 			});
 	}
 	
-	//------------------------------------------------------------
-	// PRZED KLASA
-	//------------------------------------------------------------
+	
 	public mojClass() throws IOException
 	{
-		init2(); // inicjalizacja i sprawdzenie jakie okienko otworzyc
-		connectMetoda(); // przycisk Connect
-		backDisconn(); // przycisk cofanie
-		jSelectListener(); // Combobox listener
+		/*Chek which window will be open*/
+		init2();
+		connectMethod();
+		backDisconn();
+		jSelectListener();
 		
 	
 		
