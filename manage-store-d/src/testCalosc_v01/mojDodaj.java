@@ -61,10 +61,7 @@ Color myColor2 = Color.decode("#e8e6ff"); // BUTTONS
 
 void buttt(JButton button)
 {
-//Border emptyBorder = BorderFactory.createEmptyBorder();
-//button.setBorder(emptyBorder);
-	
-	//button.setContentAreaFilled(false);
+
 button.setBackground(myColor2);
 button.setBorder(new LineBorder(Color.GRAY));
 
@@ -107,13 +104,10 @@ void zmiana() // Zmiana na false przy WYJSCIU
 	//String path = "./BookCatalog.xml";
 		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 		try {
-        // ĐˇĐľĐ•Đ´Đ°ĐµŃ‚ŃŃŹ ĐżĐľŃŃ‚Ń€ĐľĐ¸Ń‚ĐµĐ»ŃŚ Đ´ĐľĐşŃĐĽĐµĐ˝Ń‚Đ°
         DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        // ĐˇĐľĐ•Đ´Đ°ĐµŃ‚ŃŃŹ Đ´ĐµŃ€ĐµĐ˛Đľ DOM Đ´ĐľĐşŃĐĽĐµĐ˝Ń‚Đ° Đ¸Đ• Ń„Đ°ĐąĐ»Đ°
         Document document = documentBuilder.parse(path);
 
         updateElementValue(document);
-        
     } catch (ParserConfigurationException ex) {
         ex.printStackTrace(System.out);
     } catch (SAXException ex) {
@@ -121,7 +115,7 @@ void zmiana() // Zmiana na false przy WYJSCIU
     } catch (IOException ex) {
         ex.printStackTrace(System.out);
     }
-	//return status;
+	
 }
 
 private  void updateElementValue(Document doc) // Zmiana na false przy WYJSCIU

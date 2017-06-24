@@ -106,7 +106,7 @@ public class mojClass extends JFrame {
 	
 	
 	JFrame frame;
-	JComboBox<String> jSelectConfig =new JComboBox<String>();
+	JComboBox<String> jSelectTable =new JComboBox<String>();
 	JButton select = new JButton() ;
 	JButton remove = new JButton() ;
 	JButton addNew = new JButton();
@@ -135,13 +135,13 @@ public class mojClass extends JFrame {
     JLabel urlLabel;
     JLabel exLabel;
     JTextField exampleLabel;
-    JComboBox<String> jComboBox2 =new JComboBox<String>();
+    JComboBox<String> jSelectConfig =new JComboBox<String>();
     JButton butBackward =new JButton();
     JButton butDelete =new JButton();
     
-    Color colorOfFrame = Color.decode("#1e8bc3"); // FRAME
-    Color colorOfCombo = Color.decode("#d24d57"); // COMBOBOX
-    Color colorOfBut = Color.decode("#e8e6ff"); // BUTTONS
+    Color colorOfFrame = Color.decode("#1e8bc3"); 
+    Color colorOfCombo = Color.decode("#d24d57"); 
+    Color colorOfBut = Color.decode("#e8e6ff"); 
 
     
     
@@ -180,7 +180,7 @@ public class mojClass extends JFrame {
 	
 	
 	
-	void buttt(JButton button){
+	void styleOfBut(JButton button){
 		
 	button.setBackground(colorOfBut);
 	button.setBorder(new LineBorder(Color.GRAY));   
@@ -194,7 +194,6 @@ public class mojClass extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().setBackground(colorOfFrame);
-		//URL iconURL = getClass().getResource("/some/package/favicon.png");
 		frame.setIconImage(ImageIO.read(new File("src/znaczek.png")));
 		
 		
@@ -202,7 +201,7 @@ public class mojClass extends JFrame {
 		{
 			  public void windowClosing(WindowEvent we) 
 			  {
-				zmiana();
+				changeExit();
 				System.out.println("Close");
 			    System.exit(0);
 			  }
@@ -213,38 +212,35 @@ public class mojClass extends JFrame {
 		frame.setVisible(true);
 		
 		
-		jSelectConfig.setBounds(20,110,120,50);
-		frame.getContentPane().add(jSelectConfig);
-		jSelectConfig.setVisible(false);
+		jSelectTable.setBounds(20,110,120,50);
+		frame.getContentPane().add(jSelectTable);
+		jSelectTable.setVisible(false);
 		
-		jComboBox2.setBounds(50,140,120,50);
-		frame.getContentPane().add(jComboBox2);
+		jSelectConfig.setBounds(50,140,120,50);
+		frame.getContentPane().add(jSelectConfig);
 			
-		sprawdzenieProfile();
+		checkProfile();
 					
 		select.setText("WYBIERZ");
 		select.setBounds(260,30,120,50);
 		frame.getContentPane().add(select);
-		//select.setVisible(false);
-		buttt(select);
+		styleOfBut(select);
 		
 		addNew.setText("DODAJ");
 		addNew.setBounds(460,30,120,50);
 		frame.getContentPane().add(addNew);
-		//addNew.setVisible(false);
-		buttt(addNew);
+		styleOfBut(addNew);
 		
 		remove.setText("USUN");
 		remove.setBounds(460,150,120,50);
 		frame.getContentPane().add(remove);
-		//remove.setVisible(false);
-		buttt(remove);
+		styleOfBut(remove);
 		
 		
 		connect.setText("CONNECT");
 		connect.setBounds(460,200,120,50);
 		frame.getContentPane().add(connect);
-		buttt(connect);
+		styleOfBut(connect);
 		
 		userLabel = new JLabel();
 	    userLabel.setBounds(10,50,50,20);
@@ -311,17 +307,17 @@ public class mojClass extends JFrame {
 		butBackward.setBounds(20,30,120,50);
 		frame.getContentPane().add(butBackward);
 		butBackward.setVisible(false);
-		buttt(butBackward);
+		styleOfBut(butBackward);
 		
 		butDelete.setText("DELETE");
 		butDelete.setBounds(50,250,120,50);
 		frame.getContentPane().add(butDelete);
 		butDelete.setVisible(true);
-		buttt(butDelete);
+		styleOfBut(butDelete);
 		
 		
-	    
-	    sprawdzenie(); // Czy <Connect>true</Connect> czy FALSE
+	    /* Check if <Connect>true</Connect> or FALSE*/
+	    loadValue();
 	    
 	    
 	    
@@ -331,19 +327,18 @@ public class mojClass extends JFrame {
 	    	select.setVisible(true);
 	    	addNew.setVisible(true);
 	    	remove.setVisible(true);
-	    	jSelectConfig.setVisible(true);
-	    	jComboBox2.setVisible(false);
+	    	jSelectTable.setVisible(true);
+	    	jSelectConfig.setVisible(false);
 	    	
 	    	jtfURL.setVisible(false);
 		    jtfUSER.setVisible(false);
 		    jtfPASS.setVisible(false);
 		    connect.setVisible(false);
 		    butBackward.setVisible(true);
-	    	//getItems();
+	    	
 	    }
 	    else if(status.contains("false"))
 	    {
-	    
 	    
 	    select.setVisible(false);
     	addNew.setVisible(false);
@@ -351,25 +346,25 @@ public class mojClass extends JFrame {
 	    
 	    }
 	    
-	    zaladowanie();
+	    loading();
 	    	
 	}
 	
-	void connect() // Opis w srodku
+	void connect()
 	{
 		statusOfTables=false;
 		
 		
-		selectConfig = jComboBox2.getSelectedItem().toString(); // STRING SAVE1
-		selectIndex=jComboBox2.getSelectedIndex();
+		selectConfig = jSelectConfig.getSelectedItem().toString();
+		selectIndex=jSelectConfig.getSelectedIndex();
 		
-		if(jComboBox2.getSelectedItem().toString().contains("NOWA"))
+		if(jSelectConfig.getSelectedItem().toString().contains("NOWA"))
 		{
-				addNewBooo(); // Dodanie danych z NOWA do XML
+				addNewConfig(); // Dodanie danych z NOWA do XML
 		
 		}
 		////
-		if(!jComboBox2.getSelectedItem().toString().contains("NOWA"))
+		if(!jSelectConfig.getSelectedItem().toString().contains("NOWA"))
 		{
 			setConnect2();
 			selectSave(); // pobranie SAVE0 z pliku XML
@@ -377,10 +372,10 @@ public class mojClass extends JFrame {
 		
 		getItems(); // połączenie z url z SAVE0 lub pobranie z jTextField
 			
-		//if(jSelectConfig.getItemCount()!=0 )
+		//if(jSelectTable.getItemCount()!=0 )
 		if(!statusOfTables )
 		{
-			if(jSelectConfig.getItemCount()>0){
+			if(jSelectTable.getItemCount()>0){
 			select.setVisible(true);
 			remove.setVisible(true);}
 			
@@ -401,16 +396,12 @@ public class mojClass extends JFrame {
 			butDelete.setVisible(false);
 		}
 		
-		//zmiana();
-		
-		
-		
 	}
 	
-	void getItems() // Ladowanie do jSelectConfig z bazy danych
+	void getItems() // Ladowanie do jSelectTable z bazy danych
 	{
-		if(jComboBox2.getItemCount()!=0)
-		{if(jComboBox2.getSelectedItem().toString().contains("NOWA"))
+		if(jSelectConfig.getItemCount()!=0)
+		{if(jSelectConfig.getSelectedItem().toString().contains("NOWA"))
 		{
 			URL = jtfURL.getText();
 			USERNAME = jtfUSER.getText();
@@ -433,7 +424,7 @@ public class mojClass extends JFrame {
 			
 			while(resultset.next())
 			{
-			    jSelectConfig.addItem(resultset.getString(3));
+			    jSelectTable.addItem(resultset.getString(3));
 			 
 			}
 			connection.close();
@@ -477,8 +468,8 @@ public class mojClass extends JFrame {
 				
 				if(!statusLabel.getText().toString().contains("DISCONNECTED"))
 				{
-				jComboBox2.setVisible(false);
-				jSelectConfig.setVisible(true);
+				jSelectConfig.setVisible(false);
+				jSelectTable.setVisible(true);
 				
 				butBackward.setVisible(true);
 				}
@@ -488,10 +479,10 @@ public class mojClass extends JFrame {
 			}});
 	}
 	
-	void sprawdzenieProfile() // Laduje ilosc SAVE ow
+	void checkProfile() // Laduje ilosc SAVE ow
     {
 		
-		jComboBox2.removeAllItems();
+		jSelectConfig.removeAllItems();
 		
     	//ClassLoader cl = getClass().getClassLoader();
     	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
@@ -513,7 +504,7 @@ public class mojClass extends JFrame {
                     //String urrl= element.getElementsByTagName("Url").item(0).getTextContent(); 
                     //dataProfile.add(urrl);
                     int l =i+1;
-                	jComboBox2.addItem("SAVE"+l);
+                	jSelectConfig.addItem("SAVE"+l);
                     
                 }
          
@@ -526,19 +517,19 @@ public class mojClass extends JFrame {
             ex.printStackTrace(System.out);
         }
     	
-    	/*for(int i=0;i<jComboBox2.getItemCount();i++)
-    	if(!jComboBox2.getItemAt(i).toString().equals("NOWA"))
+    	/*for(int i=0;i<jSelectConfig.getItemCount();i++)
+    	if(!jSelectConfig.getItemAt(i).toString().equals("NOWA"))
     	{
-    		jComboBox2.addItem("NOWA");
+    		jSelectConfig.addItem("NOWA");
     	}
     	
     	*/
-    	jComboBox2.addItem("NOWA");
+    	jSelectConfig.addItem("NOWA");
     }
 
-	void selectSave() // Sciaganie URL,USER,PASS z jComboBox2
+	void selectSave() // Sciaganie URL,USER,PASS z jSelectConfig
     {
-    	int wybor = jComboBox2.getSelectedIndex(); // 0,1,2 ...
+    	int wybor = jSelectConfig.getSelectedIndex(); // 0,1,2 ...
     		
     		System.out.println(wybor);
     		
@@ -583,58 +574,30 @@ public class mojClass extends JFrame {
         	
      }  
 	
-	void sprawdzenie() // Laduje true czy false z XML
+	void loadValue()
     {
-    	//ClassLoader cl = getClass().getClassLoader();
+    	
     	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
     	//String path = "./BookCatalog.xml";
     	
-    	//System.out.println(in);
     	try {
-            // Создается построитель документа
+        
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            // Создается дерево DOM документа из файла
-           Document document = documentBuilder.parse(path);
-            //Document document = documentBuilder.parse(in);
-            // Получаем корневой элемент
-            //Node root = document.getDocumentElement();
+        
+            Document document = documentBuilder.parse(path);
+                    
+            NodeList nodeList = document.getElementsByTagName("Sprawdzenie");
             
-            //System.out.println("List of books:");
-            //System.out.println();
-            
-            // Просматриваем все подэлементы корневого - т.е. книги
-            //NodeList books = root.getChildNodes();
-            
-            NodeList nodeList = document.getElementsByTagName("Sprawdzenie"); // Gdzie to będzie szukane
-            
-            Node node = nodeList.item(0); // Pierwszy półka
+            Node node = nodeList.item(0);
                
-                //System.out.println("Gdzie : " + node.getNodeName());// Nazwa półki
+                
                 if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
                 {
                     Element element = (Element) node; // Element półki
-                    status= element.getElementsByTagName("Connect").item(0).getTextContent(); 
-                    																// pobranie elementa półki
-                    //System.out.println("Status : "+status);
+                    status= element.getElementsByTagName("Connect").item(0).getTextContent();
               }
-           //System.out.println("Status : "+status);
-               if(status.contains("false"))
-               {
-            	   //statusLabel.setText("STATUS : false");
-               }
-               else if(status.contains("true"))
-               {
-            	   //statusLabel.setText("STATUS : true");
-               }
-            
-           // updateElementValue(document);
-            
-            
-            
-            
-            //addNewBook(document);
-           //
+           
         } catch (ParserConfigurationException ex) {
             ex.printStackTrace(System.out);
         } catch (SAXException ex) {
@@ -642,16 +605,16 @@ public class mojClass extends JFrame {
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
-    	//return status;
+    	
     }
 	
-	void savesListe() //jComboBoxLIstener
+	void jSelectListener() //jComboBoxLIstener
 	{
-		jComboBox2.addItemListener(new ItemListener() {
+		jSelectConfig.addItemListener(new ItemListener() {
 	        public void itemStateChanged(ItemEvent arg0) {
 	            //Do Something
 	     
-		        if(jComboBox2.getSelectedItem()=="NOWA")
+		        if(jSelectConfig.getSelectedItem()=="NOWA")
 		        {
 		        	jtfURL.setVisible(true);
 		    	    jtfUSER.setVisible(true);
@@ -675,7 +638,7 @@ public class mojClass extends JFrame {
 		    	    exampleLabel.setVisible(false);
 		    	    
 		    	    // POJAWIENIE PRZYCISKA DELETE
-		    	    if(jComboBox2.getItemCount()>2)
+		    	    if(jSelectConfig.getItemCount()>2)
 		    	    butDelete.setVisible(true);
 		    	    
 		        }
@@ -683,23 +646,23 @@ public class mojClass extends JFrame {
 		});
 	}
 	
-	void coffanie() // Powrot do poczatku miesci sprawdzenieProfile
+	void backDisconn() // Powrot do poczatku miesci sprawdzenieProfile
 	{
 		butBackward.addActionListener(new ActionListener(){			
 			public void actionPerformed(ActionEvent e)
 			{	
 				
-				sprawdzenieProfile();
+				checkProfile();
 				
-				jSelectConfig.setVisible(false);
-				jComboBox2.setVisible(true);
+				jSelectTable.setVisible(false);
+				jSelectConfig.setVisible(true);
 				connect.setVisible(true);
 				select.setVisible(false);
 		    	addNew.setVisible(false);
 		    	remove.setVisible(false);
 		    	butBackward.setVisible(false);
 		    	statusLabel.setText("STATUS : DISCONNECTED");
-		    	jSelectConfig.removeAllItems();
+		    	jSelectTable.removeAllItems();
 				
 				
 			}});
@@ -766,28 +729,21 @@ public class mojClass extends JFrame {
 	    }
 	
 	
-	void addNewBooo() // Czytanie z jtfSearch i przekazanie do addNewBook
+	void addNewConfig() // Czytanie z jtfSearch i przekazanie do addNewBook
 	 {
 		 	
-		//Thread thread3 = new Thread("New Thread") {
-		 ///     public void run()
-		 //     {
-		
 		    String a = jtfURL.getText();
 			String b = jtfUSER.getText();
 			String c = jtfPASS.getText();
 		 
 		 //java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 			java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-     	//System.out.println(in);
+     	
      	try {
-             // Создается построитель документа
+             
              DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
              Document document = documentBuilder.parse(path);
             
-             //addNewBook(document,a,b,c);
-            
- 	       
                NodeList languages2 = document.getElementsByTagName("Sprawdzenie");
  	           Element lang2 = (Element) languages2.item(0);
 	           Node name = lang2.getElementsByTagName("Connect").item(0).getFirstChild();
@@ -814,29 +770,20 @@ public class mojClass extends JFrame {
  	        book.appendChild(URL);
  	       
  	        root.appendChild(book);
- 	       
- 	     //TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            //Transformer transformer = transformerFactory.newTransformer();
+	       
+
             Transformer tr = TransformerFactory.newInstance().newTransformer();
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(path2);
             tr.transform(source, result);
             
             
-            ;
-            
-            
-            
-            
-         
      	}
      	catch(Exception e)
      	{
      		
      	}
-		
-	//}};
-		//      thread3.start();
+	
 	 }
 	 
 	
@@ -844,7 +791,7 @@ public class mojClass extends JFrame {
 	// NOWE METODY
 	//------------------------------------------------------------
 
-	void zmiana2() // Zmiana SAVE0 na SAVE2
+	void checkpoint() // Zmiana SAVE0 na SAVE2
 	{    java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 		//String path = "./BookCatalog.xml";
    		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
@@ -853,7 +800,7 @@ public class mojClass extends JFrame {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.parse(path);
  
-            updateElementValue2(document);
+            updateElementValueCheckp(document);
             
             
         } catch (ParserConfigurationException ex) {
@@ -863,58 +810,34 @@ public class mojClass extends JFrame {
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
-    	//return status;
+    	
 	}
 	
-	private  void updateElementValue2(Document doc)  // Zmiana SAVE0 na SAVE2
+	/*Change SAVE0 to SAVE2 */
+	private  void updateElementValueCheckp(Document doc)
     {
         NodeList languages = doc.getElementsByTagName("Sprawdzenie");
         Element lang = null;
         
         lang = (Element) languages.item(0);
         Node name = lang.getElementsByTagName("Numer").item(0).getFirstChild();
-        //System.out.println(numberOfConfig);   
-        //System.out.print("ZAPIS "+ selectConfig+"do XML");
         
         
-        //NodeList nodeList = doc.getElementsByTagName("Sprawdzenie"); // Gdzie to będzie szukane
-       // Node node = nodeList.item(0); // Pierwszy półka
-           
-         /* String mokk="";
-            if (Node.ELEMENT_NODE == name.getNodeType()) // Jesli to jest półka to
-            {
-                Element element = (Element) name; // Element półki
-                mokk= element.getElementsByTagName("Numer").item(0).getTextContent();
-                System.out.print("Zczytana z XML "+mokk);
-            }
-        */
-       
+        /*SAVE - "SAVE1" to XML after DODAJ*/
+       int selected = selectIndex+1;
+       /*0,1,2 -> 1,2,3 */
+       String varCheckOne=String.valueOf(selected);
+       String newValue = selectConfig+varCheckOne;
+       System.out.println(newValue);
+       /*Write SAVE1 to XML */
+       name.setNodeValue(newValue);
         
-        //if(selectIndex!=0)
-       // { //////////////
-        // Zapis SAVE1 do XML po kliknieciu DODAJ
-       int uuu = selectIndex+1;
-       String varCheckOne=String.valueOf(uuu);// 0,1,2 --> 1,2,3
-       String kkk = selectConfig+varCheckOne;
-       System.out.println(kkk);
-        name.setNodeValue(kkk); //ZAPIS SAVE1 do XML
-        //name.setNodeValue(selectConfig);
-       /// }else
-      //  {
-        	
-       // }
-        
-        
-        
-        ////////////////
         writeDocument(doc);
-            
-        //}
+        
     } 
 
 	/* Change value to false (in ".XML"), after close program*/
-	 
-	void zmiana() 
+	void changeExit() 
 	{	java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 		//String path = "./BookCatalog.xml";
    		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
@@ -922,7 +845,6 @@ public class mojClass extends JFrame {
             
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.parse(path);
-            
             
             updateElementValue(document);
             
@@ -935,17 +857,15 @@ public class mojClass extends JFrame {
         }
     	
 	}
-
-	private  void updateElementValue(Document doc) // Zmiana na false przy WYJSCIU
+	/*Change to false on exit*/
+	private  void updateElementValue(Document doc)
     {
-        NodeList languages = doc.getElementsByTagName("Sprawdzenie");
-        Element lang = null;
+       NodeList languages = doc.getElementsByTagName("Sprawdzenie");
+       Element lang = null;
        
-           lang = (Element) languages.item(0);
-            Node name = lang.getElementsByTagName("Connect").item(0).getFirstChild();
-           
-        
-          name.setNodeValue("false");
+       lang = (Element) languages.item(0);
+       Node name = lang.getElementsByTagName("Connect").item(0).getFirstChild();
+       name.setNodeValue("false");
         	
            
           // String path = "./BookCatalog.xml";
@@ -961,66 +881,64 @@ public class mojClass extends JFrame {
             {
             	
             }
-            
-       
     } 
 
 	
-	void zaladowanie() // ZALADOWANIE ADD,COFNIJ
+	void loading()
 	{
 		
 		butId1=new JButton("ADD");;
 	    butId1.setBounds(440,90,150,40);//Polozenie na formie
 	    butId1.setVisible(false);
 	    frame.getContentPane().add(butId1);
-	    buttt(butId1);
+	    styleOfBut(butId1);
 	    
 	    butId2 = new JButton("DEL");
 	    butId2.setBounds(440,130,150,40);//Polozenie na formie
 	    butId2.setVisible(false);
 	    frame.getContentPane().add(butId2);
-	    buttt(butId2);
+	    styleOfBut(butId2);
 	    
 	    butId3 = new JButton("SEARCH");
 	    butId3.setBounds(310,10,100,40);//Polozenie na formie
 	    butId3.setVisible(false);
 	    frame.getContentPane().add(butId3);
-	    buttt(butId3);
+	    styleOfBut(butId3);
 	    
 	    butId4 = new JButton("COFNIJ");
 	    butId4.setBounds(20,10,120,50);//Polozenie na formie
 	    butId4.setVisible(false);
 	    frame.getContentPane().add(butId4);
-	    buttt(butId4);
+	    styleOfBut(butId4);
 	    
 	    butId5 = new JButton("TRYB DODANIA");
 	    butId5.setBounds(440,90,150,40);//Polozenie na formie
 	    butId5.setVisible(false);
 	    frame.getContentPane().add(butId5);
-	    buttt(butId5);
+	    styleOfBut(butId5);
 	    
 	    butId6 = new JButton("TRYB USUWANIA");
 	    butId6.setBounds(440,130,150,40);//Polozenie na formie
 	    butId6.setVisible(false);
 	    frame.getContentPane().add(butId6);
-	    buttt(butId6);
+	    styleOfBut(butId6);
 	    
 	    butId7 = new JButton("TRYB SZUKANIA");
 	    butId7.setBounds(440,170,150,40);//Polozenie na formie
 	    butId7.setVisible(false);
 	    frame.getContentPane().add(butId7);
-	    buttt(butId7);
+	    styleOfBut(butId7);
 	    
 	    butId8 = new JButton("WYSZYSC");
 	    butId8.setBounds(460,150,120,50);//Polozenie na formie
 	    butId8.setVisible(false);
 	    frame.getContentPane().add(butId8);
-	    buttt(butId8);
+	    styleOfBut(butId8);
 	    butId9 = new JButton("COFNIJ");
 	    butId9.setBounds(20,30,120,50);//Polozenie na formie
 	    butId9.setVisible(false);
 	    frame.getContentPane().add(butId9);
-	    buttt(butId9);
+	    styleOfBut(butId9);
 	    
 	   
 	    jtfSearch = new JTextField();
@@ -1069,7 +987,7 @@ public class mojClass extends JFrame {
 		
 	}
 
-	void zaladowanie2() // ZALADOWANIE TABELI id,sklep,model 
+	void loadingTable() 
 	{
 		columnNames.clear();
 		
@@ -1080,26 +998,22 @@ public class mojClass extends JFrame {
       statement = connection.createStatement();
       resultset = statement.executeQuery("select * from "+selectedTable.get(0).toString());
       
-      //System.out.println(resultset.toString());
       ResultSetMetaData md = resultset.getMetaData();
       int columnCount = md.getColumnCount();
-      
-      //System.out.println(columnCount);
-    
+          
       Vector columns = new Vector(columnCount);
       
-      //store column names
+      /*store column names*/
       for(int i=1; i<=columnCount; i++)
           {columns.add(md.getColumnName(i));
-          // Dodanie nazw tabeli do ArrayList 2 <!!!> WAZNE
+          /* Add names of table to ArrayList 2 <!!!>*/
           columnNames.add(md.getColumnName(i));
           }
-    System.out.println(columnNames);
      
       Vector data = new Vector();
       Vector row;
 
-      //store row data
+      /*store row data*/
       while(resultset.next())
       {
           row = new Vector(columnCount);
@@ -1108,10 +1022,9 @@ public class mojClass extends JFrame {
           	for(int t=1; t<=columnCount; t++) // nie to
           	{
               row.add(resultset.getString(t));
-              //System.out.println(row);
-             
-             }
-          	 //System.out.println(row);
+              
+            }
+          	
               data.add(row);
          
       }
@@ -1120,7 +1033,7 @@ public class mojClass extends JFrame {
     JTable jTable = new JTable(data, columns);
      
     for(int i=0;i<jTable.getColumnCount();i++)
-    { jTable.getColumnModel().getColumn(i).setResizable(false);} // NIE ZMIENIA ROZMIAROW
+    { jTable.getColumnModel().getColumn(i).setResizable(false);}
    
     jTable.getColumnModel().getColumn(0).setPreferredWidth(30);
    	jTable.getColumnModel().getColumn(1).setPreferredWidth(70);
@@ -1129,8 +1042,10 @@ public class mojClass extends JFrame {
    	jTable.getColumnModel().getColumn(4).setPreferredWidth(100);
    	jTable.getColumnModel().getColumn(5).setPreferredWidth(100);
    	
-   	jTable.getTableHeader().setReorderingAllowed(false); // PRZESUNIENIE FALSE
-    jTable.getTableHeader().setEnabled(false); 			// NIE SORTUJE PO KLIKNIECIU
+   	/*Disable swape*/
+   	jTable.getTableHeader().setReorderingAllowed(false);
+    /*Disable sorted up-down on click*/
+   	jTable.getTableHeader().setEnabled(false); 			
       	
       
        TableRowSorter<TableModel> rowSorter
@@ -1168,7 +1083,8 @@ public class mojClass extends JFrame {
 
            @Override
            public void changedUpdate(DocumentEvent e) {
-               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        	 /*To change body of generated methods, choose Tools | Templates.*/
+        	   throw new UnsupportedOperationException("Not supported yet."); 
            }
 
        });
@@ -1194,7 +1110,7 @@ public class mojClass extends JFrame {
 	
 	
 	
-	void wybierzMetoda() // Zaladowanie buttonow i tabeli
+	void selectMethod() // Zaladowanie buttonow i tabeli
 	{
 	
 		
@@ -1206,15 +1122,15 @@ public class mojClass extends JFrame {
 				//zaladowanie();
 				butBackward.setVisible(false);
 				
-				selectedTable.add(jSelectConfig.getSelectedItem().toString());
+				selectedTable.add(jSelectTable.getSelectedItem().toString());
 			
-				jSelectConfig.setVisible(false);
+				jSelectTable.setVisible(false);
 				select.setVisible(false);
 				addNew.setVisible(false);
 				remove.setVisible(false);
 				
-				//System.out.println(jSelectConfig.getSelectedItem());
-				if(jSelectConfig.getSelectedItem().equals("Sprzedane"))
+				//System.out.println(jSelectTable.getSelectedItem());
+				if(jSelectTable.getSelectedItem().equals("Sprzedane"))
 				{
 					
 				//butId6.setVisible(true);
@@ -1228,13 +1144,13 @@ public class mojClass extends JFrame {
 				butId4.setVisible(true);
 				
 			
-				zaladowanie2(); // dodanie tabeli do okienka i td
+				loadingTable(); // dodanie tabeli do okienka i td
 				
 			
 			}});}
 	
 		
-	void dodajMetoda() // Przejscie do okienka miesci zmiana2
+	void addMethod() // Przejscie do okienka miesci zmiana2
 	{
 			addNew.addActionListener(new ActionListener(){
 			
@@ -1242,7 +1158,7 @@ public class mojClass extends JFrame {
 			{
 					if(selectIndex!=0)
 					{
-						zmiana2(); // selectConfig juz jest tam umieszczona selectConfig to zczytane z ComboBox
+						checkpoint(); // selectConfig juz jest tam umieszczona selectConfig to zczytane z ComboBox
 					}
 				frame.setVisible(false);
 				try {
@@ -1259,14 +1175,14 @@ public class mojClass extends JFrame {
 	);
 	}
 	
-	void wyczyscMetoda()
+	void removeMethod()
 	{
 		remove.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e)
 			{
 				
-				//jSelectConfig.setVisible(false);
+				//jSelectTable.setVisible(false);
 				select.setVisible(false);
 				addNew.setVisible(false);
 				remove.setVisible(false);
@@ -1283,13 +1199,13 @@ public class mojClass extends JFrame {
 	//------------------------------------------------------------
 	// NOWE METODY
 	//------------------------------------------------------------
-	void connect2() // Laduje numer z XML SAVE0 --> 0 i pobiera z bazy do jSelectConfig
+	void connect2() // Laduje numer z XML SAVE0 --> 0 i pobiera z bazy do jSelectTable
 	{
 		czytajNumer2();
 		
 		getItems(); // połączenie z url z SAVE0 lub pobranie z jTextField
 			
-		if(jSelectConfig.getItemCount()!=0)
+		if(jSelectTable.getItemCount()!=0)
 		{
 			select.setVisible(true);
 			addNew.setVisible(true);
@@ -1306,8 +1222,7 @@ public class mojClass extends JFrame {
 			
 		}
 		
-		//zmiana();
-		
+				
 	}
 	
 	
@@ -1472,13 +1387,13 @@ public class mojClass extends JFrame {
 	
 	// Realizowac WYSZYSC 
 	
-	void przycisk8() // remove
+	void butRemove() // remove
 	{
 		butId8.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e)
 			{
-				jSelectConfig.setVisible(false);
+				jSelectTable.setVisible(false);
 				butId8.setVisible(false);
 				
 				try
@@ -1488,9 +1403,9 @@ public class mojClass extends JFrame {
 					
 					statement = connection.createStatement();
 					
-					String myTableName ="DROP TABLE "+jSelectConfig.getSelectedItem().toString();
+					String myTableName ="DROP TABLE "+jSelectTable.getSelectedItem().toString();
 					
-					System.out.print(jSelectConfig.getSelectedItem().toString());
+					System.out.print(jSelectTable.getSelectedItem().toString());
 					
 					statement.executeUpdate(myTableName);
 					
@@ -1506,7 +1421,7 @@ public class mojClass extends JFrame {
 			}
 		});
 	}
-	void przycisk9() // COFNIJ - po wyczyszczeniu
+	void butRemoveBack() // COFNIJ - po wyczyszczeniu
 	{
 		butId9.addActionListener(new ActionListener(){
 			
@@ -1517,10 +1432,10 @@ public class mojClass extends JFrame {
 				butId8.setVisible(false);
 				butId9.setVisible(false);
 				
-				jSelectConfig.removeAllItems();
+				jSelectTable.removeAllItems();
 				getItems();
 				
-				if(jSelectConfig.getItemCount()==0)
+				if(jSelectTable.getItemCount()==0)
 					{
 					select.setVisible(false);
 					remove.setVisible(false);
@@ -1530,7 +1445,7 @@ public class mojClass extends JFrame {
 						remove.setVisible(true);
 					}
 				
-				jSelectConfig.setVisible(true);
+				jSelectTable.setVisible(true);
 				addNew.setVisible(true);
 				
 				
@@ -1538,7 +1453,7 @@ public class mojClass extends JFrame {
 });
 	}
     
-	void przycisk5() // TRYB DODANIA
+	void butAddMode() // TRYB DODANIA
 	{
 		// TRYB DODANIA
 		
@@ -1596,7 +1511,7 @@ public class mojClass extends JFrame {
 		
 	);
 	}
-	void przycisk1() // PRZYCISK - ADD
+	void butAdd() // PRZYCISK - ADD
 	{
 		// DODAJ
 		butId1.addActionListener(new ActionListener() 
@@ -1669,14 +1584,14 @@ public class mojClass extends JFrame {
         		
         		frame.getContentPane().remove(scroller);
         		frame.repaint();
-        		zaladowanie2();
+        		loadingTable();
             
             	}	
             }
         });
 
 	}
-	void przycisk4() // COFNIJ - do menu
+	void butBackMenu() // COFNIJ - do menu
 	{
 		
 		// COFNIJ
@@ -1696,7 +1611,7 @@ public class mojClass extends JFrame {
 		scroller.setVisible(false);
 		
 		// Visible
-		jSelectConfig.setVisible(true);
+		jSelectTable.setVisible(true);
 		select.setVisible(true);
 		addNew.setVisible(true);
 		remove.setVisible(true);
@@ -1710,7 +1625,7 @@ public class mojClass extends JFrame {
 			
 	}
 	
-	void przycisk6() // TRYB DELETE
+	void butDelMode() // TRYB DELETE
 	{
 		//TRYB DELETE
 		
@@ -1758,7 +1673,7 @@ public class mojClass extends JFrame {
 		 });
 	}
 
-	void przycisk2() // DEL
+	void butDel() // DEL
 	{
 		//DELETE
 		
@@ -1788,7 +1703,7 @@ public class mojClass extends JFrame {
 	    			statement.executeUpdate(sql);
 	    			frame.remove(scroller);
 	            	frame.repaint();
-	            	zaladowanie2();
+	            	loadingTable();
 	    			
 	    		}
 	    		catch (Exception exc)
@@ -1806,7 +1721,7 @@ public class mojClass extends JFrame {
 	    });
 	}
 
-	void przycisk7() // TRYB SZUKAJ
+	void butSearchMode() // TRYB SZUKAJ
 	{
 		//TRYB SZUKAJ
 		
@@ -1836,7 +1751,7 @@ public class mojClass extends JFrame {
 	    		jtfSearch.setVisible(false);
 	    		butId7.setText("TRYB SZUKANIA");
 	    		
-	    		if(jSelectConfig.getSelectedItem().equals("sprzedane"))
+	    		if(jSelectTable.getSelectedItem().equals("sprzedane"))
 	    		{
 	    			
 	    		}else
@@ -1860,11 +1775,11 @@ public class mojClass extends JFrame {
 	    	@Override
 			public void actionPerformed(ActionEvent e)
 			{
-	    		if(jComboBox2.getItemCount()>2)
-	    		{int rr = jComboBox2.getSelectedIndex(); // SAVE0 --> 0
-	    		zmianaSAVE(rr); // USUWA SAVE0 z XML
+	    		if(jSelectConfig.getItemCount()>2)
+	    		{int index = jSelectConfig.getSelectedIndex(); // SAVE0 --> 0
+	    		zmianaSAVE(index); // USUWA SAVE0 z XML
 	    		//sprawdzenieProfile(); // RESET ComboBox
-	    		jComboBox2.removeItemAt(rr);
+	    		jSelectConfig.removeItemAt(index);
 	    		}
 	    		
 			}
@@ -1878,29 +1793,27 @@ public class mojClass extends JFrame {
 	{
 		init2(); // inicjalizacja i sprawdzenie jakie okienko otworzyc
 		connectMetoda(); // przycisk Connect
-		coffanie(); // przycisk cofanie
-		savesListe(); // Combobox listener
+		backDisconn(); // przycisk cofanie
+		jSelectListener(); // Combobox listener
 		
-	//------------------------------------------------------------
-	// NOWE METODY
-	//------------------------------------------------------------
+	
 		
-		wybierzMetoda(); // select - przejscie
-		wyczyscMetoda(); // remove - przejscie
-		dodajMetoda();  // DODAJ - przejscie
+		selectMethod(); // select - przejscie
+		removeMethod(); // remove - przejscie
+		addMethod();  // DODAJ - przejscie
 		
-		przycisk8(); // remove - usuwa z JDBC 
-		przycisk9(); // COFNIJ - po wyczyszczeniu
+		butRemove(); // remove - usuwa z JDBC 
+		butRemoveBack(); // COFNIJ - po wyczyszczeniu
 		
-		przycisk5(); // DODAJ
-		przycisk1(); // Przycisk - ADD
+		butAddMode(); // DODAJ
+		butAdd(); // Przycisk - ADD
 		
-		przycisk4(); // COFNIJ - powrow do menu
+		butBackMenu(); // COFNIJ - powrow do menu
 		 
-		przycisk6(); // TRYB DELETE
-		przycisk2(); // DEL
+		butDelMode(); // TRYB DELETE
+		butDel(); // DEL
 		
-		przycisk7(); // TRYB SZUKAJ
+		butSearchMode(); // TRYB SZUKAJ
 		
 		przyciskMainDel();
 		
