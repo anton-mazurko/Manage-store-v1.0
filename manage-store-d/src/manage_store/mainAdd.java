@@ -411,8 +411,8 @@ void pobierzCharakt(int numberOut)
 {
 	
     		int number = numberOut;
-        	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
+        	//java.io.InputStream in = mojClass.class.getResourceAsStream("/dataConfig.xml");
+    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
         	try {
               
                 DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -441,9 +441,9 @@ void pobierzCharakt(int numberOut)
 int readNumber()
 {
 	 	//ClassLoader cl = getClass().getClassLoader();
-    	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-	java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
-    	//String path = "./BookCatalog.xml";
+    	//java.io.InputStream in = mojClass.class.getResourceAsStream("/dataConfig.xml");
+	java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
+    	//String path = "./dataConfig.xml";
     	try {
             
            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

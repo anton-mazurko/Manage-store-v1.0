@@ -436,8 +436,8 @@ public class mainSpec extends JFrame {
 		jSelectConfig.removeAllItems();
 		
     	//ClassLoader cl = getClass().getClassLoader();
-    	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
-		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
+    	//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
+		java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
     	
     	try {
             
@@ -485,8 +485,8 @@ public class mainSpec extends JFrame {
 	void getUserPassUrl(int numberOut)
     {
     		int number = numberOut;
-        	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
-    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
+        	//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
+    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
         	try {
               
                 DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -518,9 +518,9 @@ public class mainSpec extends JFrame {
 	void loadValue()
     {
     	
-    	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
-		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
-    	//String path = "./BookCatalog.xml";
+    	//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
+		java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
+    	//String path = "./dataConfig.xml";
     	
     	try {
         
@@ -637,8 +637,8 @@ public class mainSpec extends JFrame {
 			String b = jtfUSER.getText();
 			String c = jtfPASS.getText();
 		 
-		 //java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
-			java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
+		 //java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
+			java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
      	
      	try {
              
@@ -690,9 +690,9 @@ public class mainSpec extends JFrame {
 	
 /*Change SAVE0 to SAVE2*/
 	void checkpoint()
-	{    java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
-		//String path = "./BookCatalog.xml";
-   		//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+	{    java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
+		//String path = "./dataConfig.xml";
+   		//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
    		try {
             
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -736,9 +736,9 @@ public class mainSpec extends JFrame {
 
 	/* Change value to false (in ".XML"), after close program*/
 	void changeExit() 
-	{	java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
-		//String path = "./BookCatalog.xml";
-   		//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+	{	java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
+		//String path = "./dataConfig.xml";
+   		//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
    		try {
             
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -766,7 +766,7 @@ public class mainSpec extends JFrame {
        name.setNodeValue("false");
         	
            
-          // String path = "./BookCatalog.xml";
+          // String path = "./dataConfig.xml";
             
            try
             {
@@ -1114,8 +1114,8 @@ public class mainSpec extends JFrame {
 	{
 		
 	    		int number = numberOut;
-	        	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
-	    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
+	        	//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
+	    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
 	        	try {
 	              
 	                DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -1144,9 +1144,9 @@ public class mainSpec extends JFrame {
 	int readNumber()
 	{
 		 	//ClassLoader cl = getClass().getClassLoader();
-	    	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
-			java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
-	    	//String path = "./BookCatalog.xml";
+	    	//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
+			java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
+	    	//String path = "./dataConfig.xml";
 	    	try {
 	            
 	           DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -1189,8 +1189,8 @@ public class mainSpec extends JFrame {
 		
 		        
 		    
-		 java.io.InputStream path4 = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
-		//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+		 java.io.InputStream path4 = mainSpec.class.getResourceAsStream("/dataConfig.xml");
+		//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
 		try {
             
             DocumentBuilder documentBuilder2 = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -1220,9 +1220,9 @@ public class mainSpec extends JFrame {
 	
 	/*Delete SAVE0 from XML*/
 	 void deleteConfigMain(int x)
-	{java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
-		//String path = "./BookCatalog.xml";
-   		//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+	{java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
+		//String path = "./dataConfig.xml";
+   		//java.io.InputStream in = main.class.getResourceAsStream("/dataConfig.xml");
    		try {
             
    			DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
