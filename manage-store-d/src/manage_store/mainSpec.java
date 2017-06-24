@@ -109,9 +109,9 @@ public class mainSpec extends JFrame {
 
     
     
-  //String path = "./BookCatalog.xml";
-    //java.io.InputStream path = main.class.getResourceAsStream("/BookCatalog.xml");
-    final static String PATH = "src/BookCatalog.xml";
+  //String path = "./dataConfig.xml";
+    //java.io.InputStream path = main.class.getResourceAsStream("/dataConfig.xml");
+    final static String PATH = "src/dataConfig.xml";
     
     boolean statusOfTables = false;    
     boolean thr = false;
@@ -140,9 +140,7 @@ public class mainSpec extends JFrame {
 	public static void main(String[] args)
 	{
 		init();
-	}
-	
-	
+	}	
 	
 	void styleOfBut(JButton button){
 		

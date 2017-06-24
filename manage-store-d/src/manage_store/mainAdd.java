@@ -55,9 +55,9 @@ public String USER="";
 public String PASS="";
 public String URL="";
 
-//String path = "./BookCatalog.xml";
-//java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-final static String path2 = "src/BookCatalog.xml";
+//String path = "./dataConfig.xml";
+//java.io.InputStream path = mojClass.class.getResourceAsStream("/dataConfig.xml");
+final static String path2 = "src/dataConfig.xml";
 Color colorOfFrame = Color.decode("#1e8bc3");
 Color colorOfBut = Color.decode("#e8e6ff");
 
@@ -98,9 +98,9 @@ void init () throws IOException
 }
 
 void changeExit()
-{	java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
-	//String path = "./BookCatalog.xml";
-		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+{	java.io.InputStream path = mainSpec.class.getResourceAsStream("/dataConfig.xml");
+	//String path = "./dataConfig.xml";
+		//java.io.InputStream in = mojClass.class.getResourceAsStream("/dataConfig.xml");
 		try {
         DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = documentBuilder.parse(path);
@@ -127,7 +127,7 @@ private  void updateElementValue(Document doc)
        name.setNodeValue("false");
     	
        
-      // String path = "./BookCatalog.xml";
+      // String path = "./dataConfig.xml";
         
        try
         {
