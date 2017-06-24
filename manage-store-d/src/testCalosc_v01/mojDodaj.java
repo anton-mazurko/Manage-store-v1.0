@@ -36,54 +36,51 @@ import com.mysql.jdbc.Statement;
 
 
 public class mojDodaj extends JFrame
+
 {
-	Connection myConn;
-	Statement myStmt;
+	Connection connection;
+	Statement statement;
 	
 
 JFrame frame;
-JComboBox jComboBox1 = new JComboBox();
-JButton button1,button2;
-JTextField jtf,jtf2,jtf3,jtf4,jtf5,jtf52,jtf6;
-JLabel label,label2,label3,label4;
+JComboBox<String> jSelectType = new JComboBox<String>();
+JButton butId1,butId2;
+JTextField jtf_ID1,jtf_ID2,jtf_ID3,jtf_ID4,jtf_ID5,jtf_ID6,jtf_NameOfTable;
+JLabel labNameOfTable,labExample,labStatus;
 
-public String numerKonfig="";
+public String numberConfig="";
 
-public String downUSER="";
-public String downPASS="";
-public String downURL="";
+public String USER="";
+public String PASS="";
+public String URL="";
 
 //String path = "./BookCatalog.xml";
 //java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-String path2 = "src/BookCatalog.xml";
-Color myColor = Color.decode("#1e8bc3"); // FRAME
-Color myColor2 = Color.decode("#e8e6ff"); // BUTTONS
+final static String path2 = "src/BookCatalog.xml";
+Color colorOfFrame = Color.decode("#1e8bc3");
+Color colorOfBut = Color.decode("#e8e6ff");
 
-void buttt(JButton button)
+void styleOfBut(JButton button)
 {
-
-button.setBackground(myColor2);
+button.setBackground(colorOfBut);
 button.setBorder(new LineBorder(Color.GRAY));
-
-
 }
 
 void init () throws IOException
 {
 	frame = new JFrame();
-	//frame.setTitle("OKIENKO GLOWNE");
 	frame.setTitle("MyDatabasePC v1.0");
 	frame.setBounds(5, 5, 400, 100);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.getContentPane().setLayout(null);
-	frame.getContentPane().setBackground(myColor);
+	frame.getContentPane().setBackground(colorOfFrame);
 	frame.setIconImage(ImageIO.read(new File("src/znaczek.png")));
 	
 	frame.addWindowListener(new WindowAdapter() 
 	{
 		  public void windowClosing(WindowEvent we) 
 		  {
-			zmiana();
+			changeExit();
 			System.out.println("Close");
 		    System.exit(0);
 		  }
@@ -93,13 +90,13 @@ void init () throws IOException
 	frame.setResizable(false);
 	frame.setVisible(true);
     
-	jComboBox1.setBounds(460,100,120,50);
-	frame.getContentPane().add(jComboBox1);
+	jSelectType.setBounds(460,100,120,50);
+	frame.getContentPane().add(jSelectType);
 	
-	zaladowanie();
+	loading();
 }
 
-void zmiana() // Zmiana na false przy WYJSCIU
+void changeExit()
 {	java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 	//String path = "./BookCatalog.xml";
 		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
@@ -118,16 +115,15 @@ void zmiana() // Zmiana na false przy WYJSCIU
 	
 }
 
-private  void updateElementValue(Document doc) // Zmiana na false przy WYJSCIU
+private  void updateElementValue(Document doc)
 {
     NodeList languages = doc.getElementsByTagName("Sprawdzenie");
     Element lang = null;
    
        lang = (Element) languages.item(0);
-        Node name = lang.getElementsByTagName("Connect").item(0).getFirstChild();
+       Node name = lang.getElementsByTagName("Connect").item(0).getFirstChild();
        
-    
-      name.setNodeValue("false");
+       name.setNodeValue("false");
     	
        
       // String path = "./BookCatalog.xml";
@@ -143,233 +139,190 @@ private  void updateElementValue(Document doc) // Zmiana na false przy WYJSCIU
         {
         	
         }
-        
-    //}
 } 
 
-void zaladowanie()
+void loading()
 {
-	button1=new JButton("WYBIERZ");;
-    button1.setBounds(460,30,120,50);//Polozenie na formie
-    button1.setVisible(true);
-    frame.getContentPane().add(button1);
-    buttt(button1);
+	butId1=new JButton("WYBIERZ");;
+    butId1.setBounds(460,30,120,50);
+    butId1.setVisible(true);
+    frame.getContentPane().add(butId1);
+    styleOfBut(butId1);
     
-    button2=new JButton("COFNIJ");;
-    button2.setBounds(20,30,120,50);//Polozenie na formie
-    button2.setVisible(true);
-    frame.getContentPane().add(button2);
-    buttt(button2);
+    butId2=new JButton("COFNIJ");;
+    butId2.setBounds(20,30,120,50);
+    butId2.setVisible(true);
+    frame.getContentPane().add(butId2);
+    styleOfBut(butId2);
     
-    jtf = new JTextField();
-    jtf.setBounds(80,220,30,20);
-    frame.getContentPane().add(jtf);
-    jtf.setVisible(false);
-    jtf.setBackground(myColor2);
+    jtf_ID1 = new JTextField();
+    jtf_ID1.setBounds(80,220,30,20);
+    frame.getContentPane().add(jtf_ID1);
+    jtf_ID1.setVisible(false);
+    jtf_ID1.setBackground(colorOfBut);
     
-    jtf2 = new JTextField();
-    jtf2.setBounds(110,220,100,20);//Polozenie na formie
-    frame.getContentPane().add(jtf2);
-    jtf2.setVisible(false);
-    jtf2.setBackground(myColor2);
+    jtf_ID2 = new JTextField();
+    jtf_ID2.setBounds(110,220,100,20);
+    frame.getContentPane().add(jtf_ID2);
+    jtf_ID2.setVisible(false);
+    jtf_ID2.setBackground(colorOfBut);
     
     
-    jtf3 = new JTextField();
-    jtf3.setBounds(210,220,100,20);//Polozenie na formie
-    frame.getContentPane().add(jtf3);
-    jtf3.setVisible(false);
-    jtf3.setBackground(myColor2);
+    jtf_ID3 = new JTextField();
+    jtf_ID3.setBounds(210,220,100,20);
+    frame.getContentPane().add(jtf_ID3);
+    jtf_ID3.setVisible(false);
+    jtf_ID3.setBackground(colorOfBut);
     
-    jtf4 = new JTextField();
-    jtf4.setBounds(310,220,100,20);//Polozenie na formie
-    frame.getContentPane().add(jtf4);
-    jtf4.setVisible(false);
-    jtf4.setBackground(myColor2);
+    jtf_ID4 = new JTextField();
+    jtf_ID4.setBounds(310,220,100,20);
+    frame.getContentPane().add(jtf_ID4);
+    jtf_ID4.setVisible(false);
+    jtf_ID4.setBackground(colorOfBut);
     
-    jtf5 = new JTextField();
-    jtf5.setBounds(410,220,80,20);//Polozenie na formie
-    frame.getContentPane().add(jtf5);
-    jtf5.setVisible(false);
-    jtf5.setBackground(myColor2);
+    jtf_ID5 = new JTextField();
+    jtf_ID5.setBounds(410,220,80,20);
+    frame.getContentPane().add(jtf_ID5);
+    jtf_ID5.setVisible(false);
+    jtf_ID5.setBackground(colorOfBut);
     
-    jtf52 = new JTextField();
-    jtf52.setBounds(490,220,40,20);//Polozenie na formie
-    frame.getContentPane().add(jtf52);
-    jtf52.setVisible(false);
-    jtf52.setBackground(myColor2);
+    jtf_ID6 = new JTextField();
+    jtf_ID6.setBounds(490,220,40,20);
+    frame.getContentPane().add(jtf_ID6);
+    jtf_ID6.setVisible(false);
+    jtf_ID6.setBackground(colorOfBut);
     
-    jtf6 = new JTextField();
-    jtf6.setBounds(80,170,130,20);//Polozenie na formie
-    frame.getContentPane().add(jtf6);
-    jtf6.setVisible(false);
-    jtf6.setBackground(myColor2);
+    jtf_NameOfTable = new JTextField();
+    jtf_NameOfTable.setBounds(80,170,130,20);
+    frame.getContentPane().add(jtf_NameOfTable);
+    jtf_NameOfTable.setVisible(false);
+    jtf_NameOfTable.setBackground(colorOfBut);
     
-    label = new JLabel();
-    label.setBounds(80,150,130,20);//Polozenie na formie
-    frame.getContentPane().add(label);
-    label.setVisible(true);
-    label.setText("WPISZ NAZWE TABELI");
-    label.setForeground(myColor2);
+    labNameOfTable = new JLabel();
+    labNameOfTable.setBounds(80,150,130,20);
+    frame.getContentPane().add(labNameOfTable);
+    labNameOfTable.setVisible(true);
+    labNameOfTable.setText("WPISZ NAZWE TABELI");
+    labNameOfTable.setForeground(colorOfBut);
     
-    label2 = new JLabel();
-    label2.setBounds(40,200,500,20);//Polozenie na formie
-    frame.getContentPane().add(label2);
-    label2.setVisible(false);
+    labExample = new JLabel();
+    labExample.setBounds(40,200,500,20);
+    frame.getContentPane().add(labExample);
+    labExample.setVisible(false);
     //label2.setText("id----------brand-----------------model-----------------cena_do---------cena_po-------sklep");
-    label2.setText("EX :         "+"id"+"              "+"brand"
+    labExample.setText("EX :         "+"id"+"              "+"brand"
     		+"                       "+"model"
     		+"                    "+"cena_buy"
     		+"            "+"cena_cell"
     		+"    "+"sklep");
-    label2.setForeground(myColor2);
+    labExample.setForeground(colorOfBut);
     
     
-    label3 = new JLabel();
-    label3.setBounds(420,300,200,20);//Polozenie na formie
-    frame.getContentPane().add(label3);
-    label3.setVisible(true);
-    label3.setText("STATUS : " + "CONNECTED");
-    label3.setForeground(myColor2);
-    
-       
-    
-   /* label4 = new JLabel();
-    label4.setBounds(480,300,100,20);//Polozenie na formie
-    frame.getContentPane().add(label4);
-    label4.setVisible(true);
-    label4.setText("CONNECTED");
-    label4.setForeground(myColor2);
-    */
-    
+    labStatus = new JLabel();
+    labStatus.setBounds(420,300,200,20);
+    frame.getContentPane().add(labStatus);
+    labStatus.setVisible(true);
+    labStatus.setText("STATUS : " + "CONNECTED");
+    labStatus.setForeground(colorOfBut);
+        
 }
 
-void dodanieCombo() // Listener of ComboBox
+void jSelectListener()
 {
-	jComboBox1.addItem("SZABLON");
-	jComboBox1.addItem("SWOJE");
+	jSelectType.addItem("SZABLON");
+	jSelectType.addItem("SWOJE");
 	
-	jtf6.setVisible(true);
+	jtf_NameOfTable.setVisible(true);
 	
-	jComboBox1.addActionListener(new ActionListener(){
+	jSelectType.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent e)
 		{
 			
 			
-			if(jComboBox1.getSelectedItem().toString()=="SZABLON")
+			if(jSelectType.getSelectedItem().toString()=="SZABLON")
 			{
-				label2.setVisible(false);
-				jtf.setVisible(false);
-            	jtf2.setVisible(false);
-            	jtf3.setVisible(false);
-            	jtf4.setVisible(false);
-            	jtf5.setVisible(false);
-            	jtf52.setVisible(false);
+				labExample.setVisible(false);
+				jtf_ID1.setVisible(false);
+            	jtf_ID2.setVisible(false);
+            	jtf_ID3.setVisible(false);
+            	jtf_ID4.setVisible(false);
+            	jtf_ID5.setVisible(false);
+            	jtf_ID6.setVisible(false);
             	
 			}
-			else if(jComboBox1.getSelectedItem().toString()=="SWOJE")
+			else if(jSelectType.getSelectedItem().toString()=="SWOJE")
 			{
-				label2.setVisible(true);
-				jtf.setVisible(true);
-	        	jtf2.setVisible(true);
-	        	jtf3.setVisible(true);
-	        	jtf4.setVisible(true);
-	        	jtf5.setVisible(true);
-	        	jtf52.setVisible(true);
-	        	
-	        	
-	        	
+				labExample.setVisible(true);
+				jtf_ID1.setVisible(true);
+	        	jtf_ID2.setVisible(true);
+	        	jtf_ID3.setVisible(true);
+	        	jtf_ID4.setVisible(true);
+	        	jtf_ID5.setVisible(true);
+	        	jtf_ID6.setVisible(true);
+	        	        	
 			}
-			
-			
 		}
-	});
-	
-	
-	
-	
-	
-	
+	});	
 }
 
-//----------------------------------------------------------
-
-void wybierzMetoda()
+void selectMethod()
 {
-	button1.addActionListener(new ActionListener() 
+	butId1.addActionListener(new ActionListener() 
 	{
 
         @Override
         public void actionPerformed(ActionEvent e) 
         {
-        	czytajNumer2();
-        	//label4.setText(downUSER.toString());
-        	jtf6.setVisible(false);
+        	readNumberMain();
+        	jtf_NameOfTable.setVisible(false);
         	
-        	button1.setVisible(false);
-        	label.setVisible(false);
-        	jComboBox1.setVisible(false);
+        	butId1.setVisible(false);
+        	labNameOfTable.setVisible(false);
+        	jSelectType.setVisible(false);
         	
         	
-        	if(jComboBox1.getSelectedItem().toString()=="SZABLON")
+        	if(jSelectType.getSelectedItem().toString()=="SZABLON")
         	{
-        		zaladowanieNowejTabeli2();
-        		
-        		jtf6.setText("");
-        		
+        		zaladowanieNowejTabeli2();        		
+        		jtf_NameOfTable.setText("");        		
         	}
         	else
         	{
-        		zala();
+        		addMethod();
         		
-        		jtf.setText("");
-            	jtf2.setText("");
-            	jtf3.setText("");
-            	jtf4.setText("");
-            	jtf5.setText("");
-            	jtf52.setText("");
-            	jtf6.setText("");
+        		jtf_ID1.setText("");
+            	jtf_ID2.setText("");
+            	jtf_ID3.setText("");
+            	jtf_ID4.setText("");
+            	jtf_ID5.setText("");
+            	jtf_ID6.setText("");
+            	jtf_NameOfTable.setText("");
             	
-            	jtf.setVisible(false);
-            	jtf2.setVisible(false);
-            	jtf3.setVisible(false);
-            	jtf4.setVisible(false);
-            	jtf5.setVisible(false);
-            	jtf52.setVisible(false);
+            	jtf_ID1.setVisible(false);
+            	jtf_ID2.setVisible(false);
+            	jtf_ID3.setVisible(false);
+            	jtf_ID4.setVisible(false);
+            	jtf_ID5.setVisible(false);
+            	jtf_ID6.setVisible(false);
             	
             	
-            	jComboBox1.setSelectedItem("SZABLON");
+            	jSelectType.setSelectedItem("SZABLON");
         	}
 	
         }
 	});
 }
 
-
-
-
-void zala()
+void addMethod()
 {
+	String a =jtf_ID1.getText().toString();
+	String b =jtf_ID2.getText().toString();
+	String c =jtf_ID3.getText().toString();
+	String d =jtf_ID4.getText().toString();
+	String e =jtf_ID5.getText().toString();
+	String f =jtf_ID6.getText().toString();
 	
-	
-	
-	/*String myTableName = "CREATE TABLE "+jtf6.getText().toString()+"("
-            + "id INT NOT NULL,"  
-            + "brand VARCHAR(45) NOT NULL," 
-            + "model VARCHAR(45) NOT NULL,"  
-            + "cena_do VARCHAR(45) NOT NULL,"
-            + "cena_po VARCHAR(45) NOT NULL,"
-            + "sklep VARCHAR(45) NOT NULL,"
-            + "PRIMARY KEY(id))"; 
-	
-	*/
-	String a =jtf.getText().toString();
-	String b =jtf2.getText().toString();
-	String c =jtf3.getText().toString();
-	String d =jtf4.getText().toString();
-	String e =jtf5.getText().toString();
-	String f =jtf52.getText().toString();
-	
-	String myTable= "CREATE TABLE "+jtf6.getText().toString()+"("
+	String myTable= "CREATE TABLE "+jtf_NameOfTable.getText().toString()+"("
 	 + a +" "+"INT NOT NULL,"
 	 + b +" "+"VARCHAR(45) NOT NULL," 
      + c +" "+"VARCHAR(45) NOT NULL,"  
@@ -378,40 +331,28 @@ void zala()
      + f +" "+"VARCHAR(45) NOT NULL,"
      +"PRIMARY KEY("+a+"))"; 
 	
-	//label3.setText(jtf2.getText().toString());
-	
 	try
 	{
+		Connection connection = (Connection) DriverManager.getConnection(URL,USER,PASS);
 		
-		Connection cone = (Connection) DriverManager.getConnection(downURL,downUSER,downPASS);
+		Statement statement = (Statement) connection.createStatement();
 		
-		Statement iii = (Statement) cone.createStatement();
-		
-		iii.executeUpdate(myTable);
+		statement.executeUpdate(myTable);
 		 
-		 
-		//label4.setText("Tabela dodana !!!");
 		 System.out.print("Tabela dodana !");
-		 //label3.setText("STATUS : " + "ADD COMPLETE");
-		 label3.setText("STATUS : " + "ADD COMPLETE");
+		 labStatus.setText("STATUS : " + "ADD COMPLETE");
 	}
 	catch (Exception exc)
 	{
-		exc.printStackTrace();
-		//label3.setText("STATUS : " + "ERROR. PLEASE REPEAT");
-		//label3.setText("STATUS : " + "ADD COMPLETE");
+		exc.printStackTrace();		
 	}
-	
-	
-	
 	
 }
 
 void zaladowanieNowejTabeli2()
 
 {
-	//String n1= "CREATE TABLE "+jtf.getText().toString()+"(";
-	String myTableName = "CREATE TABLE "+jtf6.getText().toString()+"("
+	String myTableName = "CREATE TABLE "+jtf_NameOfTable.getText().toString()+"("
             + "id INT NOT NULL,"  
             + "brand VARCHAR(45) NOT NULL," 
             + "model VARCHAR(45) NOT NULL,"  
@@ -420,34 +361,21 @@ void zaladowanieNowejTabeli2()
             + "sklep VARCHAR(45) NOT NULL,"
             + "PRIMARY KEY(id))"; 
 	
-	/*String n1= "CREATE TABLE "+jtf.getText().toString()+"(";
-	String n2= jtf2.getText().toString()+" INT NOT NULL,";
-	String n3= jtf3.getText().toString()+" VARCHAR(45) NOT NULL,";
-	String n4= jtf4.getText().toString()+" VARCHAR(45) NOT NULL,";
-	String n5= jtf5.getText().toString()+" DOUBLE NOT NULL,";
-	String n6= "PRIMARY KEY("+jtf2.getText().toString() +"))"; 
-	
-	String myTableName =n1+n2+n3+n4+n5+n6;*/
-	
 	try
 	{
 		
-		Connection myConn = (Connection) DriverManager.getConnection(downURL,downUSER,downPASS);
+		Connection connection = (Connection) DriverManager.getConnection(URL,USER,PASS);
 		
-		Statement myStmt = (Statement) myConn.createStatement();
+		Statement statement = (Statement) connection.createStatement();
 		
-		 myStmt.executeUpdate(myTableName);
+		statement.executeUpdate(myTableName);
 		 
-		// label4.setText("Tabela dodana !!!");
-		// System.out.print("Tabela dodana !");
-		 label3.setText("STATUS : " + "ADD COMPLETE");
+		labStatus.setText("STATUS : " + "ADD COMPLETE");
 		 
 	}
 	catch (Exception exc)
 	{
-		exc.printStackTrace();
-		//label3.setText("STATUS : " + "ERROR. PLEASE REPEAT");
-		
+		exc.printStackTrace();		
 	}
 }
 
@@ -455,53 +383,50 @@ void zaladowanieNowejTabeli2()
 
 void comeBack()
 {
-button2.addActionListener(new ActionListener(){
+butId2.addActionListener(new ActionListener(){
 		
     	@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			
-
-    		frame.setVisible(false);
+			frame.setVisible(false);
 			try {
 				mojClass mojClassOkienko = new mojClass();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
-			}
-			
+			}			
 		}
 	}
 	
 );
 }
 
-//----------------------------------------------------------
-void czytajNumer2() // Metoda bez input
+
+void readNumberMain()
 {
-	pobierzCharakt(czytajNumer());
+	pobierzCharakt(readNumber());
 }
 
-void pobierzCharakt(int numer2) // get URL,USER,PASS from 0
+void pobierzCharakt(int numberOut)
 {
 	
-    		int numer = numer2;
+    		int number = numberOut;
         	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
     		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
         	try {
               
                 DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
                 Document document = documentBuilder.parse(path);
-                NodeList nodeList = document.getElementsByTagName("Charakterystyki"); // Gdzie to będzie szukane
+                NodeList nodeList = document.getElementsByTagName("Charakterystyki");
               
-            	Node node = nodeList.item(numer); // Pierwszy półka
+            	Node node = nodeList.item(number);
                     
-                    if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
+                    if (Node.ELEMENT_NODE == node.getNodeType())
                     {
-                        Element element = (Element) node; // Element półki
-                         downUSER= element.getElementsByTagName("User").item(0).getTextContent(); 
-                         downPASS= element.getElementsByTagName("Password").item(0).getTextContent(); 
-                         downURL = element.getElementsByTagName("Url").item(0).getTextContent(); 
+                        Element element = (Element) node;
+                         USER= element.getElementsByTagName("User").item(0).getTextContent(); 
+                         PASS= element.getElementsByTagName("Password").item(0).getTextContent(); 
+                         URL = element.getElementsByTagName("Url").item(0).getTextContent(); 
                     }
           
             } catch (ParserConfigurationException ex) {
@@ -511,30 +436,28 @@ void pobierzCharakt(int numer2) // get URL,USER,PASS from 0
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
-        	
-   
 }
 
-int czytajNumer()// Laduje numer z XML SAVE0 --> 0
+int readNumber()
 {
 	 	//ClassLoader cl = getClass().getClassLoader();
     	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 	java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
     	//String path = "./BookCatalog.xml";
     	try {
-            // Создается построитель документа
+            
            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            // Создается дерево DOM документа из файла
+            
            Document document = documentBuilder.parse(path);
             
-            NodeList nodeList = document.getElementsByTagName("Sprawdzenie"); // Gdzie to będzie szukane
-            Node node = nodeList.item(0); // Pierwszy półka
+           NodeList nodeList = document.getElementsByTagName("Sprawdzenie");
+           Node node = nodeList.item(0);
                
               
-                if (Node.ELEMENT_NODE == node.getNodeType()) // Jesli to jest półka to
+                if (Node.ELEMENT_NODE == node.getNodeType())
                 {
-                    Element element = (Element) node; // Element półki
-                    numerKonfig= element.getElementsByTagName("Numer").item(0).getTextContent();
+                    Element element = (Element) node;
+                    numberConfig= element.getElementsByTagName("Numer").item(0).getTextContent();
                 }
         
         } catch (ParserConfigurationException ex) {
@@ -545,32 +468,24 @@ int czytajNumer()// Laduje numer z XML SAVE0 --> 0
             ex.printStackTrace(System.out);
         }
     	
-    	String del = numerKonfig;
+    	String del = numberConfig;
     	del=del.substring(4, 5);
-    	//System.out.println(del);
+    	
     	int del2=Integer.valueOf(del);
-    	
-    	//if(numerKonfig=="NOWA")
-    	//{
-    	//	System.out.println("NOWA + "+del2);
-    	//   return del2;
-    	
-    	///}else
-    	//{	
-    	int delll=del2-1;	
-    	System.out.println("SAVE numer + "+delll);
-    	return delll;
-    	//}
+    	    	
+    	int del3=del2-1;	
+    	System.out.println("SAVE numer + "+del3);
+    	return del3;    	
 }
 
 
 
-//----------------------------------------------------------
+
 public mojDodaj() throws IOException
 {
 	init();
-	wybierzMetoda();
-	dodanieCombo();
+	selectMethod();
+	jSelectListener();
 	comeBack();
 }
 
