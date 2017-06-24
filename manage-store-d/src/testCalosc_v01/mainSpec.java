@@ -50,7 +50,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 
 
 @SuppressWarnings("serial")
-public class mojClass extends JFrame {
+public class mainSpec extends JFrame {
 	
 	int selectIndex = 0;
 	
@@ -110,7 +110,7 @@ public class mojClass extends JFrame {
     
     
   //String path = "./BookCatalog.xml";
-    //java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+    //java.io.InputStream path = main.class.getResourceAsStream("/BookCatalog.xml");
     final static String PATH = "src/BookCatalog.xml";
     
     boolean statusOfTables = false;    
@@ -126,8 +126,8 @@ public class mojClass extends JFrame {
 	{
 		try
 		{
-			mojClass okienkoGlowne1 = new mojClass();
-			okienkoGlowne1.frame.setVisible(true);
+			mainSpec mainWindow = new mainSpec();
+			mainWindow.frame.setVisible(true);
 		}
 		catch(Exception e)
 		{
@@ -438,8 +438,8 @@ public class mojClass extends JFrame {
 		jSelectConfig.removeAllItems();
 		
     	//ClassLoader cl = getClass().getClassLoader();
-    	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+    	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
     	
     	try {
             
@@ -487,8 +487,8 @@ public class mojClass extends JFrame {
 	void getUserPassUrl(int numberOut)
     {
     		int number = numberOut;
-        	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-    		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+        	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
         	try {
               
                 DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -520,8 +520,8 @@ public class mojClass extends JFrame {
 	void loadValue()
     {
     	
-    	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+    	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
     	//String path = "./BookCatalog.xml";
     	
     	try {
@@ -639,8 +639,8 @@ public class mojClass extends JFrame {
 			String b = jtfUSER.getText();
 			String c = jtfPASS.getText();
 		 
-		 //java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-			java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+		 //java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+			java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
      	
      	try {
              
@@ -692,9 +692,9 @@ public class mojClass extends JFrame {
 	
 /*Change SAVE0 to SAVE2*/
 	void checkpoint()
-	{    java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+	{    java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
 		//String path = "./BookCatalog.xml";
-   		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+   		//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
    		try {
             
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -738,9 +738,9 @@ public class mojClass extends JFrame {
 
 	/* Change value to false (in ".XML"), after close program*/
 	void changeExit() 
-	{	java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+	{	java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
 		//String path = "./BookCatalog.xml";
-   		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+   		//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
    		try {
             
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -1048,7 +1048,7 @@ public class mojClass extends JFrame {
 					}
 				frame.setVisible(false);
 				try {
-					mojDodaj mojDodajOkienko = new mojDodaj();
+					mainAdd addWindow = new mainAdd();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -1116,8 +1116,8 @@ public class mojClass extends JFrame {
 	{
 		
 	    		int number = numberOut;
-	        	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-	    		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+	        	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+	    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
 	        	try {
 	              
 	                DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -1146,8 +1146,8 @@ public class mojClass extends JFrame {
 	int readNumber()
 	{
 		 	//ClassLoader cl = getClass().getClassLoader();
-	    	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-			java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+	    	//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
+			java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
 	    	//String path = "./BookCatalog.xml";
 	    	try {
 	            
@@ -1191,8 +1191,8 @@ public class mojClass extends JFrame {
 		
 		        
 		    
-		 java.io.InputStream path4 = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+		 java.io.InputStream path4 = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
+		//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
 		try {
             
             DocumentBuilder documentBuilder2 = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -1223,9 +1223,9 @@ public class mojClass extends JFrame {
 	
 	/*Delete SAVE0 from XML*/
 	 void deleteConfigMain(int x)
-	{java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+	{java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
 		//String path = "./BookCatalog.xml";
-   		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+   		//java.io.InputStream in = main.class.getResourceAsStream("/BookCatalog.xml");
    		try {
             
    			DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -1617,7 +1617,7 @@ public class mojClass extends JFrame {
 	}
 	
 	
-	public mojClass() throws IOException
+	public mainSpec() throws IOException
 	{
 		/*Chek which window will be open*/
 		init2();

@@ -35,7 +35,8 @@ import com.mysql.jdbc.Statement;
 
 
 
-public class mojDodaj extends JFrame
+@SuppressWarnings("serial")
+public class mainAdd extends JFrame
 
 {
 	Connection connection;
@@ -97,7 +98,7 @@ void init () throws IOException
 }
 
 void changeExit()
-{	java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+{	java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
 	//String path = "./BookCatalog.xml";
 		//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
 		try {
@@ -237,8 +238,7 @@ void jSelectListener()
 	jSelectType.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent e)
 		{
-			
-			
+						
 			if(jSelectType.getSelectedItem().toString()=="SZABLON")
 			{
 				labExample.setVisible(false);
@@ -390,7 +390,7 @@ butId2.addActionListener(new ActionListener(){
 		{
 			frame.setVisible(false);
 			try {
-				mojClass mojClassOkienko = new mojClass();
+				mainSpec startWindow = new mainSpec();
 			} catch (IOException e1) {
 				
 				e1.printStackTrace();
@@ -412,7 +412,7 @@ void pobierzCharakt(int numberOut)
 	
     		int number = numberOut;
         	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-    		java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+    		java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
         	try {
               
                 DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -442,7 +442,7 @@ int readNumber()
 {
 	 	//ClassLoader cl = getClass().getClassLoader();
     	//java.io.InputStream in = mojClass.class.getResourceAsStream("/BookCatalog.xml");
-	java.io.InputStream path = mojClass.class.getResourceAsStream("/BookCatalog.xml");
+	java.io.InputStream path = mainSpec.class.getResourceAsStream("/BookCatalog.xml");
     	//String path = "./BookCatalog.xml";
     	try {
             
@@ -481,7 +481,7 @@ int readNumber()
 
 
 
-public mojDodaj() throws IOException
+public mainAdd() throws IOException
 {
 	init();
 	selectMethod();
