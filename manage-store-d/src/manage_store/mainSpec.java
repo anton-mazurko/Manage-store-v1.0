@@ -788,54 +788,54 @@ public class mainSpec extends JFrame {
 	{
 		
 		butId1=new JButton("ADD");;
-	    butId1.setBounds(440,90,150,40);//Polozenie na formie
+	    butId1.setBounds(440,90,150,40);
 	    butId1.setVisible(false);
 	    frame.getContentPane().add(butId1);
 	    styleOfBut(butId1);
 	    
 	    butId2 = new JButton("DEL");
-	    butId2.setBounds(440,130,150,40);//Polozenie na formie
+	    butId2.setBounds(440,130,150,40);
 	    butId2.setVisible(false);
 	    frame.getContentPane().add(butId2);
 	    styleOfBut(butId2);
 	    
 	    butId3 = new JButton("SEARCH");
-	    butId3.setBounds(310,10,100,40);//Polozenie na formie
+	    butId3.setBounds(310,10,100,40);
 	    butId3.setVisible(false);
 	    frame.getContentPane().add(butId3);
 	    styleOfBut(butId3);
 	    
 	    butId4 = new JButton("COFNIJ");
-	    butId4.setBounds(20,10,120,50);//Polozenie na formie
+	    butId4.setBounds(20,10,120,50);
 	    butId4.setVisible(false);
 	    frame.getContentPane().add(butId4);
 	    styleOfBut(butId4);
 	    
 	    butId5 = new JButton("TRYB DODANIA");
-	    butId5.setBounds(440,90,150,40);//Polozenie na formie
+	    butId5.setBounds(440,90,150,40);
 	    butId5.setVisible(false);
 	    frame.getContentPane().add(butId5);
 	    styleOfBut(butId5);
 	    
 	    butId6 = new JButton("TRYB USUWANIA");
-	    butId6.setBounds(440,130,150,40);//Polozenie na formie
+	    butId6.setBounds(440,130,150,40);
 	    butId6.setVisible(false);
 	    frame.getContentPane().add(butId6);
 	    styleOfBut(butId6);
 	    
 	    butId7 = new JButton("TRYB SZUKANIA");
-	    butId7.setBounds(440,170,150,40);//Polozenie na formie
+	    butId7.setBounds(440,170,150,40);
 	    butId7.setVisible(false);
 	    frame.getContentPane().add(butId7);
 	    styleOfBut(butId7);
 	    
 	    butId8 = new JButton("WYSZYSC");
-	    butId8.setBounds(460,150,120,50);//Polozenie na formie
+	    butId8.setBounds(460,150,120,50);
 	    butId8.setVisible(false);
 	    frame.getContentPane().add(butId8);
 	    styleOfBut(butId8);
 	    butId9 = new JButton("COFNIJ");
-	    butId9.setBounds(20,30,120,50);//Polozenie na formie
+	    butId9.setBounds(20,30,120,50);
 	    butId9.setVisible(false);
 	    frame.getContentPane().add(butId9);
 	    styleOfBut(butId9);
@@ -847,39 +847,39 @@ public class mainSpec extends JFrame {
 	    jtfSearch.setVisible(false);
 	    
 	    jtf_ID2 = new JTextField();
-	    jtf_ID2.setBounds(40,60,100,20);//Polozenie na formie
+	    jtf_ID2.setBounds(40,60,100,20);
 	    frame.getContentPane().add(jtf_ID2);
 	    jtf_ID2.setVisible(false);
 	    
 	    jtf_ID3 = new JTextField();
-	    jtf_ID3.setBounds(140,60,100,20);//Polozenie na formie
+	    jtf_ID3.setBounds(140,60,100,20);
 	    frame.getContentPane().add(jtf_ID3);
 	    jtf_ID3.setVisible(false);
 	    
 	    jtf_ID4 = new JTextField();
-	    jtf_ID4.setBounds(240,60,100,20);//Polozenie na formie
+	    jtf_ID4.setBounds(240,60,100,20);
 	    frame.getContentPane().add(jtf_ID4);
 	    jtf_ID4.setVisible(false);
 	    
 	    jtf_ID5 = new JTextField();
-	    jtf_ID5.setBounds(340,60,100,20);//Polozenie na formie
+	    jtf_ID5.setBounds(340,60,100,20);
 	    frame.getContentPane().add(jtf_ID5);
 	    jtf_ID5.setVisible(false);
 	    
 	    
 	    jtf_ID6 = new JTextField();
-	    jtf_ID6.setBounds(440,60,100,20);//Polozenie na formie
+	    jtf_ID6.setBounds(440,60,100,20);
 	    frame.getContentPane().add(jtf_ID6);
 	    jtf_ID6.setVisible(false);
 	    
 	    
 	    jtf_ID1 = new JTextField();
-	    jtf_ID1.setBounds(10,60,30,20);//Polozenie na formie
+	    jtf_ID1.setBounds(10,60,30,20);
 	    frame.getContentPane().add(jtf_ID1);
 	    jtf_ID1.setVisible(false);
 	   
 	    jtfDelete = new JTextField();
-	    jtfDelete.setBounds(440,70,150,20);//Polozenie na formie
+	    jtfDelete.setBounds(440,70,150,20);
 	    frame.getContentPane().add(jtfDelete);
 	    jtfDelete.setVisible(false);
 	   
@@ -1198,8 +1198,7 @@ public class mainSpec extends JFrame {
             DocumentBuilder documentBuilder2 = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document2 = documentBuilder2.parse(path4);
            
-            NodeList languages2 = document2.getElementsByTagName("Sprawdzenie");
-	        
+            NodeList languages2 = document2.getElementsByTagName("Sprawdzenie");	        
 	        
 	        Element lang2 = (Element) languages2.item(0);
 	        Node name = lang2.getElementsByTagName("Connect").item(0).getFirstChild();
@@ -1280,9 +1279,7 @@ public class mainSpec extends JFrame {
 				catch (Exception exc)
 				{
 					exc.printStackTrace();
-				}
-			
-			
+				}			
 			}
 		});
 	}
