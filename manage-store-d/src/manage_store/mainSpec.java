@@ -1,4 +1,4 @@
-package testCalosc_v01;
+package manage_store;
 
 import java.awt.Color;
 import java.awt.EventQueue;
